@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>G2A UI Clone</title>
+    <style>
+        /* CSS RESET & VARIABLES */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --g2a-blue: #006aff;
+            --g2a-orange: #f27900;
+            --g2a-bg: #000000;
+            --card-bg: #1a1a1a;
+            --text-white: #ffffff;
+            --text-gray: #b3b3b3;
+        }
+
+        body {
+            background-color: var(--g2a-bg);
+            color: var(--text-white);
+            padding-bottom: 50px;
+        }
+
+        /* HEADER */
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 20px;
+            background-color: var(--g2a-bg);
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .menu-icon {
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .logo {
+            font-weight: 900;
+            font-size: 24px;
+            letter-spacing: -1px;
+        }
+        .logo span:first-child { color: var(--g2a-orange); }
+        .logo span:last-child { color: var(--g2a-blue); }
+
+        .nav-icons {
+            display: flex;
+            gap: 20px;
+            font-size: 20px;
+        }
+
+        /* SEARCH BAR */
+        .search-section {
+            padding: 0 20px 20px 20px;
+        }
+
+        .search-container {
+            display: flex;
+            width: 100%;
+            height: 48px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .search-container input {
+            flex-grow: 1;
+            border: none;
+            padding: 0 15px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .search-btn {
+            background-color: var(--g2a-blue);
+            border: none;
+            width: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .search-btn:hover {
+            background-color: #0056d2;
+        }
+
+        /* CARD LIST */
+        .content-wrapper {
+            padding: 0 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .card {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+        }
+
+        .card-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Gradient Overlay to make text readable */
+        .card-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 70%;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 20px;
+        }
+
+        .badge {
+            font-size: 10px;
+            font-weight: 800;
+            padding: 2px 6px;
+            border-radius: 4px;
+            width: fit-content;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .badge-new { background-color: #4caf50; }
+        .badge-bestseller { background-color: #ff5722; }
+        .badge-preorder { background-color: #2196f3; }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+            letter-spacing: 0.5px;
+        }
+
+        .card-subtitle {
+            font-size: 13px;
+            color: var(--text-gray);
+            font-weight: 500;
+        }
+
+        /* SVG Icons Simulation */
+        .icon {
+            width: 24px;
+            height: 24px;
+            fill: white;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-area">
+            <div class="menu-icon">☰</div>
+            <div class="logo"><span>G2</span><span>A</span></div>
+        </div>
+        <div class="nav-icons">
+            <span>🌐</span>
+            <span>👤</span>
+            <span>♡</span>
+            <span>🛒</span>
+        </div>
+    </header>
+
+    <section class="search-section">
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="What are you looking for?">
+            <button class="search-btn" onclick="handleSearch()">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+            </button>
+        </div>
+    </section>
+
+    <main class="content-wrapper">
+        
+        <!-- Card 1 -->
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1589241062272-c0a000072dfa?auto=format&fit=crop&q=80&w=800" alt="Resident Evil" class="card-img">
+            <div class="card-overlay">
+                <div class="badge badge-new">NEW</div>
+                <div class="card-title">Resident Evil Requiem</div>
+                <div class="card-subtitle">Steam · Global · Key</div>
+            </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?auto=format&fit=crop&q=80&w=800" alt="PSN" class="card-img">
+            <div class="card-overlay">
+                <div class="badge badge-bestseller">BESTSELLER</div>
+                <div class="card-title">PlayStation Network</div>
+                <div class="card-subtitle">PSN · Global · Key</div>
+            </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&q=80&w=800" alt="Marathon" class="card-img">
+            <div class="card-overlay">
+                <div class="badge badge-preorder">PREORDER</div>
+                <div class="card-title">Marathon</div>
+                <div class="card-subtitle">Steam · Global · Key</div>
+            </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1552824734-03f445832b00?auto=format&fit=crop&q=80&w=800" alt="Action Game" class="card-img">
+            <div class="card-overlay">
+                <div class="badge badge-bestseller">BESTSELLER</div>
+                <div class="card-title">Action Warrior Saga</div>
+                <div class="card-subtitle">Steam · Global · Key</div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // Simple search function
+        function handleSearch() {
+            const query = document.getElementById('searchInput').value;
+            if(query) {
+                alert('Searching for: ' + query);
+            } else {
+                alert('Please enter a search term');
+            }
+        }
+
+        // Add "Enter" key listener for search
+        document.getElementById('searchInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                handleSearch();
+            }
+        });
+
+        // Add click events to cards for simulation
+        const cards = document.querySelectorAll('.card');
+        cards.forEach(card => {
+            card.addEventListener('click', () => {
+                const title = card.querySelector('.card-title').innerText;
+                console.log('Navigating to: ' + title);
+            });
+        });
+    </script>
+</body>
+</html>

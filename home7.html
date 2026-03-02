@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>G2A UI Final Sections</title>
+    <style>
+        :root {
+            --g2a-blue: #006aff;
+            --g2a-red: #ff5722;
+            --g2a-green: #10b981;
+            --bg-gray: #fcfcfc;
+            --text-dark: #1a1a1a;
+            --text-gray: #6b7280;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-gray);
+            color: var(--text-dark);
+            padding: 20px 0 80px 0;
+        }
+
+        h2 {
+            font-size: 20px;
+            font-weight: 800;
+            margin: 0 15px 15px 15px;
+        }
+
+        .sponsored-header {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 11px;
+            color: var(--text-gray);
+            font-weight: 700;
+            text-transform: uppercase;
+            margin: 0 15px 5px 15px;
+        }
+
+        /* HORIZONTAL SCROLLING */
+        .horizontal-scroll {
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            padding: 0 15px 25px 15px;
+            scrollbar-width: none;
+        }
+        .horizontal-scroll::-webkit-scrollbar { display: none; }
+
+        /* TOP SOFTWARE CARD */
+        .sw-card {
+            min-width: 240px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sw-banner {
+            height: 140px;
+            background: #0078d4; /* Windows Blue */
+            border-radius: 16px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-end;
+            padding: 15px;
+            position: relative;
+        }
+
+        .sw-banner-logo {
+            color: white;
+            font-weight: 600;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .sw-content { padding: 12px; }
+
+        .sw-title {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .sw-meta {
+            font-size: 12px;
+            color: var(--text-gray);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 15px;
+        }
+
+        .sw-meta b { color: var(--g2a-green); }
+
+        .sw-price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .price-now { font-size: 18px; font-weight: 800; }
+        .discount-tag {
+            background: var(--g2a-red);
+            color: white;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 2px 5px;
+            border-radius: 4px;
+            margin-left: 5px;
+        }
+        .price-old { font-size: 12px; color: var(--text-gray); text-decoration: line-through; }
+
+        .heart-btn {
+            background: none;
+            border: none;
+            font-size: 22px;
+            color: #ccc;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        /* EXCLUSIVE BUNDLE CARD */
+        .bundle-card {
+            min-width: 290px;
+            background: white;
+            border-radius: 16px;
+            border: 1px solid #eee;
+            padding: 20px 15px;
+        }
+
+        .bundle-item {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 5px;
+        }
+
+        .item-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            background: #f3f4f6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+        }
+
+        .item-icon img { width: 100%; height: 100%; object-fit: contain; }
+
+        .item-info { flex: 1; }
+        .item-title { font-size: 13px; font-weight: 700; line-height: 1.2; }
+        .item-sub { font-size: 11px; color: var(--text-gray); margin: 2px 0; }
+        .item-price { font-size: 14px; font-weight: 800; }
+
+        .bundle-plus {
+            text-align: center;
+            color: #ddd;
+            font-size: 24px;
+            margin: 10px 0;
+            font-weight: 300;
+        }
+
+        .bundle-summary {
+            border-top: 1px solid #f3f4f6;
+            margin-top: 15px;
+            padding-top: 15px;
+        }
+
+        .total-val { font-size: 26px; font-weight: 800; }
+        .save-val { color: var(--g2a-green); font-size: 13px; font-weight: 700; margin-bottom: 15px; }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 14px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            border: none;
+            text-align: center;
+        }
+
+        .btn-blue { background: var(--g2a-blue); color: white; }
+        .btn-outline { background: white; color: var(--g2a-blue); border: 1px solid #eef2ff; }
+
+        /* FAB */
+        .scroll-top-fab {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 45px;
+            height: 45px;
+            background: #3b82f6;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- SOFTWARE SECTION -->
+    <section>
+        <h2>Top software deals</h2>
+        <div class="sponsored-header">Sponsored ⓘ</div>
+        <div class="horizontal-scroll">
+            
+            <div class="sw-card">
+                <div class="sw-banner">
+                    <div class="sw-banner-logo">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M0 3.449L9.75 2.1V11.419H0V3.449zm0 17.102L9.75 21.9V12.581H0v7.97zm10.55 1.579L24 24V12.581H10.55V22.13zm0-19.833V11.42H24V0l-13.45 2.297z"/></svg>
+                        Windows
+                    </div>
+                </div>
+                <div class="sw-content">
+                    <div class="sw-title">Microsoft Windows 11 Pro - PC</div>
+                    <div class="sw-meta">🪟 Microsoft • Key • <b>GLOBAL</b></div>
+                    <div class="sw-price-row">
+                        <div>
+                            <span class="price-now">22.25 USD</span><span class="discount-tag">-85%</span>
+                            <div class="price-old">153.28 USD</div>
+                        </div>
+                        <button class="heart-btn" onclick="toggleHeart(this)">♡</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sw-card">
+                <div class="sw-banner">
+                    <div class="sw-banner-logo">Windows</div>
+                </div>
+                <div class="sw-content">
+                    <div class="sw-title">Microsoft Windows 11 Home</div>
+                    <div class="sw-meta">🪟 Microsoft • Key • <b>GLOBAL</b></div>
+                    <div class="sw-price-row">
+                        <div>
+                            <span class="price-now">20.37 USD</span><span class="discount-tag">-82%</span>
+                            <div class="price-old">112.01 USD</div>
+                        </div>
+                        <button class="heart-btn" onclick="toggleHeart(this)">♡</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- BUNDLE SECTION -->
+    <section>
+        <h2>Exclusive bundle deals</h2>
+        <div class="horizontal-scroll">
+            
+            <!-- Bundle 1 -->
+            <div class="bundle-card">
+                <div class="bundle-item">
+                    <div class="item-icon">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/CapCut_logo.svg/1024px-CapCut_logo.svg.png" alt="CapCut">
+                    </div>
+                    <div class="item-info">
+                        <div class="item-title">CapCut Pro 1 Month</div>
+                        <div class="item-sub">CapCut • Account • <span style="color:var(--g2a-green); font-weight:700">GLOBAL</span></div>
+                        <div class="item-price">3.62 USD <span class="discount-tag">-82%</span></div>
+                        <div class="price-old">20.04 USD</div>
+                    </div>
+                </div>
+                
+                <div class="bundle-plus">+</div>
+
+                <div class="bundle-item">
+                    <div class="item-icon">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/1024px-ChatGPT_logo.svg.png" alt="ChatGPT">
+                    </div>
+                    <div class="item-info">
+                        <div class="item-title">ChatGPT Plus 1 User 1 Month</div>
+                        <div class="item-sub">ChatGPT • Account • <span style="color:var(--g2a-green); font-weight:700">GLOBAL</span></div>
+                        <div class="item-price">2.05 USD <span class="discount-tag">-92%</span></div>
+                        <div class="price-old">27.12 USD</div>
+                    </div>
+                </div>
+
+                <div class="bundle-summary">
+                    <div class="total-val">5.67 USD</div>
+                    <div class="save-val">You save: 41.49 USD</div>
+                    <button class="btn btn-blue" onclick="alert('Added to cart')">Add to cart</button>
+                    <button class="btn btn-outline">Check bundle details</button>
+                </div>
+            </div>
+
+            <!-- Bundle 2 -->
+            <div class="bundle-card">
+                <div class="bundle-item">
+                    <div class="item-icon">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/CapCut_logo.svg/1024px-CapCut_logo.svg.png" alt="CapCut">
+                    </div>
+                    <div class="item-info">
+                        <div class="item-title">CapCut Pro Annual</div>
+                        <div class="item-sub">CapCut • Account • <span style="color:var(--g2a-green); font-weight:700">GLOBAL</span></div>
+                        <div class="item-price">3.62 USD</div>
+                    </div>
+                </div>
+                <div class="bundle-plus">+</div>
+                <div class="bundle-item">
+                    <div class="item-icon">VM</div>
+                    <div class="item-info">
+                        <div class="item-title">Voicemeeter Subscription</div>
+                        <div class="item-sub">Voicemod • Account</div>
+                        <div class="item-price">4.31 USD</div>
+                    </div>
+                </div>
+                <div class="bundle-summary">
+                    <div class="total-val">7.93 USD</div>
+                    <div class="save-val">You save: 16.64 USD</div>
+                    <button class="btn btn-blue">Add to cart</button>
+                    <button class="btn btn-outline">Check bundle details</button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <div class="scroll-top-fab" onclick="window.scrollTo({top:0, behavior:'smooth'})">↑</div>
+
+    <script>
+        function toggleHeart(btn) {
+            if (btn.innerText === '♡') {
+                btn.innerText = '❤';
+                btn.style.color = '#ff4b4b';
+            } else {
+                btn.innerText = '♡';
+                btn.style.color = '#ccc';
+            }
+        }
+    </script>
+</body>
+</html>

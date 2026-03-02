@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>G2A Newsletter & FAQ</title>
+    <style>
+        /* BASE STYLES */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: #1a1a1a;
+            padding-bottom: 50px;
+        }
+
+        /* NEWSLETTER SECTION */
+        .newsletter-section {
+            background-color: #e3f2fd; /* Light blue background */
+            padding: 24px 16px;
+        }
+
+        .newsletter-title {
+            font-size: 18px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .newsletter-subtext {
+            font-size: 13px;
+            color: #555;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .show-more {
+            color: #2196f3;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .newsletter-input {
+            width: 100%;
+            height: 48px;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            padding: 0 16px;
+            font-size: 15px;
+            margin-bottom: 16px;
+            outline: none;
+        }
+
+        .newsletter-btn {
+            width: 100%;
+            height: 44px;
+            background-color: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .newsletter-btn:hover {
+            background-color: #2563eb;
+        }
+
+        /* FAQ SECTION */
+        .faq-section {
+            padding: 30px 16px;
+        }
+
+        .faq-title {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .faq-container {
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+
+        .faq-question {
+            width: 100%;
+            padding: 18px 20px;
+            background: white;
+            border: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-align: left;
+            font-size: 14px;
+            font-weight: 700;
+            color: #111;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .faq-question:hover {
+            background-color: #f9fafb;
+        }
+
+        .faq-question span {
+            padding-right: 15px;
+        }
+
+        /* SVG Arrow Icon */
+        .chevron {
+            width: 12px;
+            height: 12px;
+            fill: none;
+            stroke: #333;
+            stroke-width: 2.5;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .chevron {
+            transform: rotate(180deg);
+        }
+
+        /* FAQ Content (Hidden by default) */
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease;
+            background-color: #fcfcfc;
+            font-size: 14px;
+            color: #4b5563;
+            padding: 0 20px;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 200px; /* arbitrary large value */
+            padding: 0 20px 20px 20px;
+        }
+
+        /* FLOATING ACTION BUTTON */
+        .fab-up {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 45px;
+            height: 45px;
+            background-color: #3b82f6;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+            cursor: pointer;
+            z-index: 100;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- NEWSLETTER SECTION -->
+    <section class="newsletter-section">
+        <h2 class="newsletter-title">Join our newsletter and enjoy 11% off</h2>
+        <p class="newsletter-subtext">
+            Subscribe to get updates, confirm your subscription, and receive a discount code to use instantly 
+            <span class="show-more">Show more <svg style="width:10px; height:10px; fill:currentColor" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg></span>
+        </p>
+        
+        <input type="email" class="newsletter-input" placeholder="broaddayagb888@gmail.com">
+        <button class="newsletter-btn" onclick="subscribe()">Subscribe</button>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section class="faq-section">
+        <h2 class="faq-title">FAQ</h2>
+        
+        <div class="faq-container">
+            <!-- FAQ 1 -->
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>What is G2A.COM and how does the marketplace work?</span>
+                    <svg class="chevron" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </button>
+                <div class="faq-answer">
+                    G2A.COM is the world's largest marketplace for digital products, where various sellers offer game keys, software, and gift cards at competitive prices.
+                </div>
+            </div>
+
+            <!-- FAQ 2 -->
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>What types of digital items can I buy on G2A.COM?</span>
+                    <svg class="chevron" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </button>
+                <div class="faq-answer">
+                    You can find Steam keys, PSN/Xbox gift cards, software licenses (like Windows), and even in-game top-ups for mobile games.
+                </div>
+            </div>
+
+            <!-- FAQ 3 -->
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>Is G2A.COM a marketplace? And who sells digital items?</span>
+                    <svg class="chevron" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </button>
+                <div class="faq-answer">
+                    Yes, it's a marketplace where independent, verified third-party sellers list their digital products for customers worldwide.
+                </div>
+            </div>
+
+            <!-- FAQ 4 -->
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>What do customer reviews and ratings say about G2A.COM?</span>
+                    <svg class="chevron" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </button>
+                <div class="faq-answer">
+                    Most users praise G2A for its variety and low prices, maintaining high ratings on platforms like Trustpilot.
+                </div>
+            </div>
+
+            <!-- FAQ 5 -->
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>Is G2A.COM a legitimate and trustworthy platform?</span>
+                    <svg class="chevron" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </button>
+                <div class="faq-answer">
+                    Yes, G2A has been operating for years and uses advanced security measures to ensure safe transactions for millions of users.
+                </div>
+            </div>
+
+            <!-- FAQ 6 -->
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>How can I contact G2A.COM customer support and get help?</span>
+                    <svg class="chevron" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </button>
+                <div class="faq-answer">
+                    You can reach out through the Support Center on the website or via the ticket system in your user dashboard.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FLOATING ACTION BUTTON -->
+    <div class="fab-up" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+        <svg style="width:24px; height:24px; fill:currentColor" viewBox="0 0 24 24"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg>
+    </div>
+
+    <script>
+        // NEWSLETTER LOGIC
+        function subscribe() {
+            const email = document.querySelector('.newsletter-input').value;
+            if(email) {
+                alert('Success! Check ' + email + ' for your 11% discount code.');
+            } else {
+                alert('Please enter a valid email address.');
+            }
+        }
+
+        // ACCORDION LOGIC
+        const faqQuestions = document.querySelectorAll('.faq-question');
+
+        faqQuestions.forEach(question => {
+            question.addEventListener('click', () => {
+                const item = question.parentElement;
+                
+                // Toggle current item
+                item.classList.toggle('active');
+
+                // Optional: Close other items when one is opened
+                // document.querySelectorAll('.faq-item').forEach(otherItem => {
+                //     if (otherItem !== item) otherItem.classList.remove('active');
+                // });
+            });
+        });
+    </script>
+</body>
+</html>

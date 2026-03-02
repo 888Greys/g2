@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>G2A Budget and Bundles UI</title>
+    <style>
+        /* BASE STYLES */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #fcfcfc;
+            padding: 20px 15px;
+            color: #1a1a1a;
+        }
+
+        h2 {
+            font-size: 20px;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* BUDGET SECTION */
+        .section-budget {
+            margin-bottom: 40px;
+        }
+
+        .budget-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            max-width: 450px;
+            margin: 0 auto;
+        }
+
+        .budget-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 14px;
+            height: 75px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+
+        .budget-card:active { transform: scale(0.97); }
+
+        .budget-card span:first-child {
+            font-size: 11px;
+            font-weight: 700;
+            color: #6b7280;
+            text-transform: uppercase;
+        }
+
+        .budget-card span:last-child {
+            font-size: 32px;
+            font-weight: 900;
+            color: #4b5563;
+            line-height: 1;
+        }
+
+        /* Budget Card Blobs (Recreating the UI shapes) */
+        .budget-card::before, .budget-card::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            z-index: 0;
+        }
+
+        /* Card 1 specific colors (Blue/Orange) */
+        .card-5::before { top: -10px; left: -10px; background: #006aff; border-radius: 0 0 40px 0; }
+        .card-5::after { bottom: -5px; right: -5px; background: #ff7a00; border-radius: 40px 0 0 0; width: 50px; height: 50px; }
+
+        /* Card 2 specific (Orange) */
+        .card-10::before { top: -15px; left: -15px; background: #ff7a00; transform: rotate(45deg); width: 60px; }
+
+        /* Card 3 specific (Orange Large) */
+        .card-15::before { bottom: -10px; left: -15px; background: #ff7a00; transform: rotate(15deg); width: 80px; height: 50px; }
+
+        /* Card 4 specific (Blue) */
+        .card-20::after { bottom: -15px; right: -15px; background: #006aff; transform: rotate(15deg); width: 70px; height: 100px; }
+
+        .budget-card span { position: relative; z-index: 1; }
+
+        /* BUNDLE DEALS SECTION */
+        .section-bundles h2 { text-align: left; }
+
+        .bundle-scroll {
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            padding-bottom: 20px;
+            scrollbar-width: none; /* Hide scrollbar for clean look */
+        }
+        .bundle-scroll::-webkit-scrollbar { display: none; }
+
+        .bundle-card {
+            min-width: 300px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            padding: 15px;
+            flex-shrink: 0;
+        }
+
+        /* Product row inside bundle */
+        .bundle-item {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+
+        .prod-img {
+            width: 65px;
+            height: 65px;
+            border-radius: 6px;
+            object-fit: cover;
+        }
+
+        .prod-info { flex: 1; }
+
+        .platform-tag {
+            font-size: 11px;
+            color: #6b7280;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-bottom: 2px;
+        }
+
+        .prod-title {
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            line-height: 1.2;
+        }
+
+        .price-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .current-price { font-weight: 800; font-size: 14px; }
+
+        .discount-badge {
+            background: #ff4b4b;
+            color: white;
+            font-size: 10px;
+            font-weight: 800;
+            padding: 1px 4px;
+            border-radius: 3px;
+        }
+
+        .old-price {
+            font-size: 11px;
+            color: #9ca3af;
+            text-decoration: line-through;
+        }
+
+        .plus-divider {
+            text-align: center;
+            color: #d1d5db;
+            font-size: 20px;
+            margin: 10px 0;
+            font-weight: 300;
+        }
+
+        /* Bundle Footer */
+        .bundle-total {
+            border-top: 1px solid #f3f4f6;
+            padding-top: 15px;
+            margin-top: 15px;
+        }
+
+        .total-price {
+            font-size: 24px;
+            font-weight: 800;
+        }
+
+        .save-text {
+            color: #10b981;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            border: none;
+            margin-bottom: 8px;
+            transition: opacity 0.2s;
+        }
+
+        .btn-primary { background: #006aff; color: white; }
+        .btn-secondary { 
+            background: transparent; 
+            color: #006aff; 
+            border: 1px solid #006aff; 
+        }
+        .btn:hover { opacity: 0.9; }
+
+        /* Scroll indicator icon */
+        .scroll-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: #3b82f6;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- BUDGET SECTION -->
+    <section class="section-budget">
+        <h2>What's your budget?</h2>
+        <div class="budget-grid">
+            <div class="budget-card card-5">
+                <span>UP TO:</span>
+                <span>5$</span>
+            </div>
+            <div class="budget-card card-10">
+                <span>UP TO:</span>
+                <span>10$</span>
+            </div>
+            <div class="budget-card card-15">
+                <span>UP TO:</span>
+                <span>15$</span>
+            </div>
+            <div class="budget-card card-20">
+                <span>UP TO:</span>
+                <span>20$</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- BUNDLES SECTION -->
+    <section class="section-bundles">
+        <h2>Exclusive bundle deals</h2>
+        
+        <div class="bundle-scroll">
+            
+            <!-- Bundle Card 1 -->
+            <div class="bundle-card">
+                <!-- Item 1 -->
+                <div class="bundle-item">
+                    <img src="https://via.placeholder.com/100x100/171a21/ffffff?text=5+KEYS" class="prod-img">
+                    <div class="prod-info">
+                        <div class="platform-tag">☁️ Steam • Key • GLOBAL</div>
+                        <div class="prod-title">5 Random Steam Keys GLOBAL</div>
+                        <div class="price-row">
+                            <span class="current-price">9.31 USD</span>
+                            <span class="discount-badge">-95%</span>
+                        </div>
+                        <div class="old-price">200.38 USD</div>
+                    </div>
+                </div>
+
+                <div class="plus-divider">+</div>
+
+                <!-- Item 2 -->
+                <div class="bundle-item">
+                    <img src="https://via.placeholder.com/100x100/171a21/ffffff?text=ELITE" class="prod-img">
+                    <div class="prod-info">
+                        <div class="platform-tag">☁️ Steam • Key • GLOBAL</div>
+                        <div class="prod-title">Random ELITE 5 Keys PC</div>
+                        <div class="price-row">
+                            <span class="current-price">5.06 USD</span>
+                            <span class="discount-badge">-93%</span>
+                        </div>
+                        <div class="old-price">77.76 USD</div>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div class="bundle-total">
+                    <div class="total-price">19.14 USD</div>
+                    <div class="save-text">You save: 341.52 USD</div>
+                    <button class="btn btn-primary" onclick="alert('Added to cart!')">Add to cart</button>
+                    <button class="btn btn-secondary">Check bundle details</button>
+                </div>
+            </div>
+
+            <!-- Bundle Card 2 (Duplicate for scroll demo) -->
+            <div class="bundle-card">
+                <div class="bundle-item">
+                    <img src="https://via.placeholder.com/100x100/171a21/ffffff?text=GAME" class="prod-img">
+                    <div class="prod-info">
+                        <div class="platform-tag">☁️ Steam • Key • GLOBAL</div>
+                        <div class="prod-title">Premium AAA Game Key</div>
+                        <div class="price-row">
+                            <span class="current-price">4.03 USD</span>
+                            <span class="discount-badge">-90%</span>
+                        </div>
+                        <div class="old-price">40.00 USD</div>
+                    </div>
+                </div>
+                <div class="plus-divider">+</div>
+                <div class="bundle-item">
+                    <img src="https://via.placeholder.com/100x100/171a21/ffffff?text=DLC" class="prod-img">
+                    <div class="prod-info">
+                        <div class="platform-tag">☁️ Steam • Key • GLOBAL</div>
+                        <div class="prod-title">Random DLC Pack PC</div>
+                        <div class="price-row">
+                            <span class="current-price">6.40 USD</span>
+                            <span class="discount-badge">-85%</span>
+                        </div>
+                        <div class="old-price">42.52 USD</div>
+                    </div>
+                </div>
+                <div class="bundle-total">
+                    <div class="total-price">10.43 USD</div>
+                    <div class="save-text">You save: 78.83 USD</div>
+                    <button class="btn btn-primary">Add to cart</button>
+                    <button class="btn btn-secondary">Check bundle details</button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <div class="scroll-top">↑</div>
+
+    <script>
+        // Budget filtering simulation
+        document.querySelectorAll('.budget-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const budget = card.querySelector('span:last-child').innerText;
+                console.log('Filtering for budget:', budget);
+                // Visual feedback
+                document.querySelectorAll('.budget-card').forEach(c => c.style.borderColor = '#e5e7eb');
+                card.style.borderColor = '#006aff';
+            });
+        });
+
+        // Scroll top logic
+        document.querySelector('.scroll-top').addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>G2A Mobile Top-Ups & Software</title>
+    <style>
+        /* BASE STYLES */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #fcfcfc;
+            color: #1a1a1a;
+            padding-bottom: 80px;
+        }
+
+        /* BANNER SECTION */
+        .top-up-banner {
+            text-align: center;
+            padding: 20px 10px;
+            text-transform: uppercase;
+            font-weight: 900;
+            line-height: 1.1;
+        }
+
+        .banner-title-1 { font-size: 26px; font-style: italic; }
+        .banner-title-1 span:nth-child(1) { color: #ff3399; } /* Diamonds */
+        .banner-title-1 span:nth-child(2) { color: #d1d5db; font-size: 18px; margin: 0 5px; } /* Diamond icon */
+        .banner-title-1 span:nth-child(3) { color: #3b82f6; } /* Coins */
+        .banner-title-1 span:nth-child(4) { color: #d1d5db; font-size: 18px; margin: 0 5px; } /* Diamond icon */
+        .banner-title-1 span:nth-child(5) { color: #3b82f6; } /* Points */
+
+        .banner-title-2 {
+            font-size: 18px;
+            color: #3b82f6;
+            margin-top: 5px;
+            letter-spacing: 0.5px;
+        }
+
+        /* STEP INDICATORS */
+        .steps-container {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin: 15px 0 25px 0;
+        }
+
+        .step {
+            width: 32px;
+            height: 32px;
+            background: #111827;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #a5f3fc;
+            font-weight: 900;
+            font-size: 18px;
+            box-shadow: inset 0 0 5px rgba(165, 243, 252, 0.5);
+        }
+
+        .step.active {
+            box-shadow: 0 0 15px rgba(249, 115, 22, 0.8), inset 0 0 5px rgba(165, 243, 252, 0.5);
+            border: 1px solid rgba(249, 115, 22, 0.5);
+        }
+
+        /* MOBILE GAME GRID */
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            padding: 0 15px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .game-card {
+            aspect-ratio: 1 / 1;
+            background-color: #1e293b;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+
+        .game-card:active { transform: scale(0.95); }
+
+        .game-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* SOFTWARE DEALS SECTION */
+        .software-section {
+            margin-top: 40px;
+        }
+
+        .section-header {
+            padding: 0 15px;
+            margin-bottom: 15px;
+        }
+
+        .section-header h2 {
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .sponsored-tag {
+            font-size: 11px;
+            color: #6b7280;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            text-transform: uppercase;
+        }
+
+        .horizontal-scroll {
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            padding: 0 15px 20px 15px;
+            scrollbar-width: none;
+        }
+        .horizontal-scroll::-webkit-scrollbar { display: none; }
+
+        .software-card {
+            min-width: 260px;
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .software-banner {
+            height: 140px;
+            background-color: #0078d4; /* Windows Blue */
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-end;
+            padding: 15px;
+            border-radius: 16px;
+            position: relative;
+        }
+
+        .win-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: white;
+            font-weight: 600;
+            font-size: 20px;
+        }
+
+        .win-logo svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+        }
+
+        .software-info {
+            padding: 12px 5px;
+        }
+
+        .software-title {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .software-meta {
+            font-size: 12px;
+            color: #4b5563;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .software-meta span.global {
+            color: #10b981;
+            font-weight: 700;
+        }
+
+        /* FAB */
+        .fab {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 45px;
+            height: 45px;
+            background: #3b82f6;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+            cursor: pointer;
+            z-index: 100;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TOP UP HEADER -->
+    <header class="top-up-banner">
+        <div class="banner-title-1">
+            <span>DIAMONDS</span><span>✦</span><span>COINS</span><span>✦</span><span>POINTS</span>
+        </div>
+        <div class="banner-title-2">TOP UP YOUR MOBILE GAME</div>
+    </header>
+
+    <!-- STEPS -->
+    <div class="steps-container">
+        <div class="step active">1</div>
+        <div class="step">2</div>
+        <div class="step">3</div>
+        <div class="step">4</div>
+    </div>
+
+    <!-- GAME GRID -->
+    <main class="game-grid">
+        <!-- Asphalt (with promo overlay text) -->
+        <div class="game-card">
+            <img src="https://m.media-amazon.com/images/I/71I9p1W9F2L.png" alt="Asphalt">
+            <div style="position:absolute; bottom:5px; width:100%; text-align:center; color:#ffff00; font-weight:900; font-size:10px; text-shadow:1px 1px 2px #000;">+200% TOKENS</div>
+        </div>
+        <div class="game-card"><img src="https://play-lh.googleusercontent.com/6S33S3Mh105O768I5V_1C1X7S_2_N0G6f1S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S" alt="MLBB"></div>
+        <div class="game-card"><img src="https://play-lh.googleusercontent.com/T0_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S" alt="Genshin"></div>
+        
+        <div class="game-card"><img src="https://play-lh.googleusercontent.com/T2_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S" alt="Star Rail"></div>
+        <div class="game-card"><img src="https://play-lh.googleusercontent.com/T3_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S" alt="Honkai 3rd"></div>
+        <div class="game-card"><img src="https://play-lh.googleusercontent.com/T4_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S" alt="Blood Strike"></div>
+        
+        <div class="game-card"><img src="https://play-lh.googleusercontent.com/T5_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S" alt="PUBG"></div>
+        <div class="game-card"><img src="https://play-lh.googleusercontent.com/T6_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S" alt="ZZZ"></div>
+        <div class="game-card"><img src="https://play-lh.googleusercontent.com/T7_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S_S1S" alt="Free Fire"></div>
+    </main>
+
+    <!-- SOFTWARE DEALS -->
+    <section class="software-section">
+        <div class="section-header">
+            <h2>Top software deals</h2>
+            <div class="sponsored-tag">Sponsored ⓘ</div>
+        </div>
+
+        <div class="horizontal-scroll">
+            <!-- Windows Card -->
+            <div class="software-card">
+                <div class="software-banner">
+                    <div class="win-logo">
+                        <svg viewBox="0 0 24 24"><path d="M0 3.449L9.75 2.1V11.419H0V3.449zm0 17.102L9.75 21.9V12.581H0v7.97zm10.55 1.579L24 24V12.581H10.55V22.13zm0-19.833V11.42H24V0l-13.45 2.297z"/></svg>
+                        Windows
+                    </div>
+                </div>
+                <div class="software-info">
+                    <div class="software-title">Microsoft Windows 11 Pro - PC</div>
+                    <div class="software-meta">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="#6b7280"><path d="M0 3.449L9.75 2.1V11.419H0V3.449zm0 17.102L9.75 21.9V12.581H0v7.97zm10.55 1.579L24 24V12.581H10.55V22.13zm0-19.833V11.42H24V0l-13.45 2.297z"/></svg>
+                        Microsoft • Key • <span class="global">GLOBAL</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Duplicate for scroll -->
+            <div class="software-card">
+                <div class="software-banner" style="background-color: #737373;">
+                    <div class="win-logo">Office</div>
+                </div>
+                <div class="software-info">
+                    <div class="software-title">Microsoft Office 2021 Pro Plus</div>
+                    <div class="software-meta">Microsoft • Key • <span class="global">GLOBAL</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="fab" id="toTop">↑</div>
+
+    <script>
+        // Simple Step Switcher simulation
+        const steps = document.querySelectorAll('.step');
+        steps.forEach(step => {
+            step.addEventListener('click', () => {
+                steps.forEach(s => s.classList.remove('active'));
+                step.classList.add('active');
+            });
+        });
+
+        // Scroll to top
+        document.getElementById('toTop').onclick = () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+    </script>
+</body>
+</html>

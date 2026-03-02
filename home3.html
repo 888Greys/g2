@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category Grid UI</title>
+    <style>
+        /* BASE STYLES */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #fcfcfc;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 450px;
+            width: 100%;
+            margin-top: 50px; /* Space for elements above */
+        }
+
+        /* GRID LAYOUT */
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        /* CARD STYLING */
+        .category-card {
+            background: #ffffff;
+            border-radius: 12px;
+            aspect-ratio: 1 / 1.1; /* Makes them slightly taller than wide */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+            cursor: pointer;
+            border: 1px solid rgba(0,0,0,0.02);
+        }
+
+        .category-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        /* ICON STYLING */
+        .icon-box {
+            width: 70px;
+            height: 70px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .icon-box svg {
+            width: 100%;
+            height: 100%;
+            fill: #6c7a8e; /* The specific blue-gray color from the image */
+        }
+
+        /* TEXT STYLING */
+        .category-name {
+            font-size: 11px;
+            font-weight: 700;
+            color: #1a1a1a;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            line-height: 1.3;
+        }
+
+        /* FLOATING ACTION BUTTON */
+        .fab {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 45px;
+            height: 45px;
+            background-color: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+            font-size: 20px;
+            z-index: 100;
+        }
+
+        .fab svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="category-grid">
+            
+            <!-- Steam -->
+            <div class="category-card" onclick="selectCategory('Steam')">
+                <div class="icon-box">
+                    <svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 6.627 5.37 12 12 12 6.626 0 12-5.373 12-12 0-6.627-5.373-12-12-12zm0 18.25c-3.452 0-6.25-2.798-6.25-6.25 0-3.452 2.798-6.25 6.25-6.25s6.25 2.798 6.25 6.25c0 3.452-2.798 6.25-6.25 6.25z"/></svg>
+                </div>
+                <div class="category-name">Steam</div>
+            </div>
+
+            <!-- Xbox -->
+            <div class="category-card" onclick="selectCategory('Xbox')">
+                <div class="icon-box">
+                    <svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 22C6.486 22 2 17.514 2 12S6.486 2 12 2s10 4.486 10 10-4.486 10-10 10zm-3-13l3 3 3-3v6H9V9z"/></svg>
+                </div>
+                <div class="category-name">Xbox</div>
+            </div>
+
+            <!-- PlayStation -->
+            <div class="category-card" onclick="selectCategory('PlayStation')">
+                <div class="icon-box">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm1 14.5v-9l4.5 4.5-4.5 4.5z"/></svg>
+                </div>
+                <div class="category-name">Playstation</div>
+            </div>
+
+            <!-- eSIM -->
+            <div class="category-card" onclick="selectCategory('eSIM')">
+                <div class="icon-box">
+                    <svg viewBox="0 0 24 24"><path d="M18 2h-8L4 8v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-5 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+                </div>
+                <div class="category-name">eSIM</div>
+            </div>
+
+            <!-- AI -->
+            <div class="category-card" onclick="selectCategory('AI')">
+                <div class="icon-box">
+                    <svg viewBox="0 0 24 24"><path d="M13 3h-2v10h2V3zm4.83 2.17l-1.42 1.42C17.99 7.86 19 9.81 19 12c0 3.87-3.13 7-7 7s-7-3.13-7-7c0-2.19 1.01-4.14 2.58-5.42L6.17 5.17C4.23 6.82 3 9.26 3 12c0 4.97 4.03 9 9 9s9-4.03 9-9c0-2.74-1.23-5.18-3.17-6.83z"/></svg>
+                </div>
+                <div class="category-name">AI</div>
+            </div>
+
+            <!-- Mobile Game -->
+            <div class="category-card" onclick="selectCategory('Mobile Game Top-Ups')">
+                <div class="icon-box">
+                    <svg viewBox="0 0 24 24"><path d="M12.14 4.5L16 9l-4 5-4-5 3.86-4.5zM12 2L4 11h16L12 2zm8 10l-8 10-8-10h16z"/></svg>
+                </div>
+                <div class="category-name">Mobile Game Top-Ups</div>
+            </div>
+
+            <!-- Counter-Strike -->
+            <div class="category-card" onclick="selectCategory('Counter-Strike Skins')">
+                <div class="icon-box">
+                    <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                </div>
+                <div class="category-name">Counter-Strike Skins</div>
+            </div>
+
+            <!-- Subscriptions -->
+            <div class="category-card" onclick="selectCategory('Subscriptions')">
+                <div class="icon-box">
+                    <svg viewBox="0 0 24 24"><path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm-1 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L4.24 7.74C3.46 8.97 3 10.43 3 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/></svg>
+                </div>
+                <div class="category-name">Subscriptions</div>
+            </div>
+
+        </div>
+    </div>
+
+    <button class="fab" id="scrollTopBtn">
+        <svg viewBox="0 0 24 24"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg>
+    </button>
+
+    <script>
+        // Category selection helper
+        function selectCategory(name) {
+            console.log("Selected category:", name);
+            // You can add navigation logic here
+        }
+
+        // Floating Action Button - Scroll to top
+        const scrollBtn = document.getElementById("scrollTopBtn");
+        
+        scrollBtn.addEventListener("click", () => {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        });
+
+        // Hide button when at top
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 100) {
+                scrollBtn.style.opacity = "1";
+                scrollBtn.style.pointerEvents = "auto";
+            } else {
+                scrollBtn.style.opacity = "0";
+                scrollBtn.style.pointerEvents = "none";
+            }
+        });
+        
+        // Initial state
+        scrollBtn.style.opacity = "0";
+        scrollBtn.style.transition = "opacity 0.3s ease";
+    </script>
+</body>
+</html>

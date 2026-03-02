@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>G2A Final Sections</title>
+    <style>
+        :root {
+            --bg-gray: #fcfcfc;
+            --text-main: #1a1a1a;
+            --text-secondary: #6b7280;
+            --g2a-green: #10b981;
+            --g2a-blue: #00b8ff;
+            --card-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-gray);
+            color: var(--text-main);
+            padding-bottom: 50px;
+        }
+
+        section { margin-bottom: 30px; }
+
+        h2 {
+            font-size: 20px;
+            font-weight: 800;
+            padding: 15px 15px 10px 15px;
+        }
+
+        /* PRODUCT CARDS SECTION */
+        .card-scroll {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding: 0 15px 20px 15px;
+            scrollbar-width: none;
+        }
+        .card-scroll::-webkit-scrollbar { display: none; }
+
+        .prod-card {
+            min-width: 170px;
+            max-width: 170px;
+            background: white;
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: var(--card-shadow);
+        }
+
+        .prod-meta {
+            font-size: 10px;
+            color: var(--text-secondary);
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 8px 10px 4px 10px;
+        }
+
+        .prod-img-box {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 3/4;
+            border-radius: 16px;
+            overflow: hidden;
+            background: #eee;
+        }
+
+        .prod-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .wishlist-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 32px;
+            height: 32px;
+            background: rgba(0, 0, 0, 0.35);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .wishlist-btn.active { color: #ff4b4b; background: white; }
+
+        .prod-info { padding: 12px 10px; flex-grow: 1; display: flex; flex-direction: column; }
+
+        .prod-title {
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            height: 36px;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        .prod-brand { font-size: 11px; color: var(--text-secondary); margin-bottom: 2px; }
+        .prod-region { font-size: 11px; font-weight: 700; color: var(--g2a-green); margin-bottom: 15px; }
+
+        .prod-price { font-size: 16px; font-weight: 800; margin-top: auto; }
+
+        /* APP PROMO BANNER */
+        .promo-banner {
+            margin: 0 15px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: white;
+            padding: 25px 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Mockup Background (Simplified) */
+        .promo-banner::before {
+            content: '';
+            position: absolute;
+            right: -20px;
+            bottom: -20px;
+            width: 150px;
+            height: 250px;
+            background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/G2A_Logo.svg/1200px-G2A_Logo.svg.png') no-repeat center;
+            background-size: contain;
+            opacity: 0.1;
+            transform: rotate(-15deg);
+        }
+
+        .promo-left { width: 45%; }
+        .promo-left img { width: 100%; height: auto; border-radius: 10px; box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
+
+        .promo-right { width: 50%; text-align: center; z-index: 1; }
+        .promo-tagline { font-size: 18px; font-weight: 800; text-transform: uppercase; line-height: 1.2; margin-bottom: 15px; }
+
+        .promo-code-box {
+            background: var(--g2a-blue);
+            color: white;
+            font-size: 28px;
+            font-weight: 900;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0, 184, 255, 0.4);
+        }
+
+        .store-btns { display: flex; flex-direction: column; gap: 8px; align-items: center; }
+        .store-btn { height: 32px; filter: brightness(1.2); }
+        .ratings { font-size: 10px; margin-top: 5px; color: #cbd5e1; }
+
+        /* SCROLL TOP */
+        .fab-up {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 45px;
+            height: 45px;
+            background: #3b82f6;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            cursor: pointer;
+            z-index: 100;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- FAVORITES SECTION -->
+    <section>
+        <h2>Our customers' favorite items</h2>
+        <div class="card-scroll">
+            
+            <!-- Item 1: eSim -->
+            <div class="prod-card">
+                <div class="prod-meta">Offer from: Foniatravel</div>
+                <div class="prod-img-box">
+                    <img src="https://images.unsplash.com/photo-1526772662000-3f88f10405ff?w=400" alt="eSim">
+                    <button class="wishlist-btn" onclick="toggleWish(this)">❤</button>
+                </div>
+                <div class="prod-info">
+                    <div class="prod-title">eSIM Fonia Travel (Android, iOS) 3 GB 3...</div>
+                    <div class="prod-brand">Fonia Travel • Key</div>
+                    <div class="prod-price">3.84 USD</div>
+                </div>
+            </div>
+
+            <!-- Item 2: Razer Gold -->
+            <div class="prod-card">
+                <div class="prod-meta">Sponsored ⓘ</div>
+                <div class="prod-img-box">
+                    <img src="https://razergold.razer.com/assets/img/og-image.png" alt="Razer Gold">
+                    <button class="wishlist-btn" onclick="toggleWish(this)">❤</button>
+                </div>
+                <div class="prod-info">
+                    <div class="prod-title">Razer Gold 20 USD</div>
+                    <div class="prod-brand">Razer • Key</div>
+                    <div class="prod-region">GLOBAL</div>
+                    <div class="prod-price">21.80 USD</div>
+                </div>
+            </div>
+
+            <!-- Item 3: Windows (Partial Visibility) -->
+            <div class="prod-card">
+                <div class="prod-meta">Sponsored ⓘ</div>
+                <div class="prod-img-box">
+                    <img src="https://images.unsplash.com/photo-1633419461186-7d40a38105ec?w=400" alt="Windows">
+                </div>
+                <div class="prod-info">
+                    <div class="prod-title">Microsoft Windows 11 Pro</div>
+                    <div class="prod-brand">Microsoft • Key</div>
+                    <div class="prod-region">GLOBAL</div>
+                    <div class="prod-price">22.25 USD</div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- APP PROMO SECTION -->
+    <section>
+        <div class="promo-banner">
+            <div class="promo-left">
+                <!-- Placeholder for the phone mockup image -->
+                <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400" alt="App Mockup">
+            </div>
+            
+            <div class="promo-right">
+                <div class="promo-tagline">SAVE 15% <br> <span style="font-weight: 400; font-size: 14px;">on your first APP buy with the code:</span></div>
+                <div class="promo-code-box">APP15</div>
+                
+                <div class="store-btns">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Download_on_the_App_Store_Badge.svg/640px-Download_on_the_App_Store_Badge.svg.png" class="store-btn">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Google_Play_Store_badge_EN.svg/640px-Google_Play_Store_badge_EN.svg.png" class="store-btn">
+                </div>
+                
+                <div class="ratings">
+                    ★★★★★ 4.7 &nbsp; ★★★★★ 4.2
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="fab-up" onclick="window.scrollTo({top:0, behavior:'smooth'})">↑</div>
+
+    <script>
+        function toggleWish(btn) {
+            btn.classList.toggle('active');
+            // If the heart is colored, it signifies 'wishlisted'
+        }
+    </script>
+</body>
+</html>

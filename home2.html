@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pick a Card UI</title>
+    <style>
+        /* BASE STYLES */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f7f8fa;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 500px;
+            width: 100%;
+        }
+
+        h1 {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 20px;
+            padding-left: 5px;
+        }
+
+        /* GRID LAYOUT */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* 2 columns like the image */
+            gap: 15px;
+        }
+
+        /* CARD STYLING */
+        .card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 20px 15px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 200px;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        /* IMAGE CONTAINER */
+        .img-container {
+            width: 100%;
+            height: 90px;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* TEXT STYLING */
+        .card-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #2d2d2d;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .card-price {
+            font-size: 13px;
+            color: #8e8e93;
+            font-weight: 500;
+        }
+
+        /* FLOATING BUTTON */
+        .scroll-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(74, 144, 226, 0.4);
+            font-size: 20px;
+            display: none; /* Hidden by default */
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Pick a card!</h1>
+
+        <div class="card-grid">
+            <!-- Steam -->
+            <div class="card">
+                <div class="img-container">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Steam_icon_logo.svg/2048px-Steam_icon_logo.svg.png" style="background:#171a21; padding:15px; object-fit:contain;" alt="Steam">
+                </div>
+                <div class="card-title">Steam Gift Cards</div>
+                <div class="card-price">$1 - $500</div>
+            </div>
+
+            <!-- PSN -->
+            <div class="card">
+                <div class="img-container">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/PlayStation_logo.svg/2560px-PlayStation_logo.svg.png" style="background:#003087; padding:15px; object-fit:contain;" alt="PSN">
+                </div>
+                <div class="card-title">PSN Gift Cards</div>
+                <div class="card-price">$1 - $500</div>
+            </div>
+
+            <!-- Razer -->
+            <div class="card">
+                <div class="img-container">
+                    <img src="https://razergold.razer.com/assets/img/og-image.png" alt="Razer">
+                </div>
+                <div class="card-title">Razer Gift Cards</div>
+                <div class="card-price">$1 - $1000</div>
+            </div>
+
+            <!-- Xbox -->
+            <div class="card">
+                <div class="img-container">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Xbox_logo_%282019%29.svg/1200px-Xbox_logo_%282019%29.svg.png" style="background:#107c10; padding:15px; object-fit:contain;" alt="Xbox">
+                </div>
+                <div class="card-title">Xbox Gift Cards</div>
+                <div class="card-price">$1 - $250</div>
+            </div>
+
+            <!-- iTunes -->
+            <div class="card">
+                <div class="img-container">
+                    <img src="https://support.apple.com/content/dam/edam/applecare/images/en_US/appleid/gift-cards-header-itunes.png" alt="iTunes">
+                </div>
+                <div class="card-title">iTunes Gift Cards</div>
+                <div class="card-price">$2 - $1000</div>
+            </div>
+
+            <!-- Amazon -->
+            <div class="card">
+                <div class="img-container">
+                    <img src="https://m.media-amazon.com/images/G/01/gc/designs/livepreview/amazon_dkblue_noto_email_v2016_us-main._CB468775337_.png" alt="Amazon">
+                </div>
+                <div class="card-title">Amazon Gift Cards</div>
+                <div class="card-price">$1 - $950</div>
+            </div>
+
+            <!-- PayPal -->
+            <div class="card">
+                <div class="img-container">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/PayPal.svg/1200px-PayPal.svg.png" style="background:#f7f8fa; padding:15px; object-fit:contain;" alt="PayPal">
+                </div>
+                <div class="card-title">PayPal Gift Cards</div>
+                <div class="card-price">$10 - $250</div>
+            </div>
+
+            <!-- Apple -->
+            <div class="card">
+                <div class="img-container">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/1667px-Apple_logo_black.svg.png" style="background:#e3e3e3; padding:20px; object-fit:contain;" alt="Apple">
+                </div>
+                <div class="card-title">Apple Gift Cards</div>
+                <div class="card-price">$2 - $1000</div>
+            </div>
+        </div>
+    </div>
+
+    <button class="scroll-top" id="scrollTopBtn">↑</button>
+
+    <script>
+        // Scroll to top functionality
+        const scrollBtn = document.getElementById("scrollTopBtn");
+
+        window.onscroll = function() {
+            if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+                scrollBtn.style.display = "flex";
+            } else {
+                scrollBtn.style.display = "none";
+            }
+        };
+
+        scrollBtn.addEventListener("click", () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Simple click listener for cards
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('click', () => {
+                const title = card.querySelector('.card-title').innerText;
+                alert('You selected: ' + title);
+            });
+        });
+    </script>
+</body>
+</html>
