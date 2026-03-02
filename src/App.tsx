@@ -4,6 +4,7 @@
  */
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { ProtectedRoute } from "./components/ProtectedRoute";
 import { SiteLayout } from "./layouts/SiteLayout";
 import Home from "./pages/Home";
 import Catalog from "./pages/Catalog";
@@ -30,9 +31,9 @@ export default function App() {
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/account" element={<Account />} />
-          <Route path="/orders" element={<Orders />} />
-          <Route path="/seller" element={<SellerDashboard />} />
+          <Route path="/account" element={<ProtectedRoute><Account /></ProtectedRoute>} />
+          <Route path="/orders" element={<ProtectedRoute><Orders /></ProtectedRoute>} />
+          <Route path="/seller" element={<ProtectedRoute><SellerDashboard /></ProtectedRoute>} />
           <Route path="/support" element={<Support />} />
           <Route path="*" element={<NotFound />} />
         </Route>

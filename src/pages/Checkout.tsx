@@ -1,8 +1,10 @@
-﻿import { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { ShieldCheck, Lock, CreditCard, Wallet, Banknote, CheckCircle2 } from "lucide-react";
 import { games } from "../data/games";
 import { useCart } from "../context/CartContext";
+import { useOrders } from "../context/OrdersContext";
+import { isValidEmail } from "../lib/validation";
 
 const paymentMethods = [
   { id: "card", label: "Credit / Debit Card", icon: CreditCard, helper: "Visa, Mastercard, Amex" },
@@ -14,8 +16,12 @@ export default function Checkout() {
   const [selectedPayment, setSelectedPayment] = useState("card");
   const [deliveryEmail, setDeliveryEmail] = useState("gamer@example.com");
   const [newsletter, setNewsletter] = useState(true);
+  const [orderPlaced, setOrderPlaced] = useState(false);
+  const [emailError, setEmailError] = useState<string | null>(null);
+  const [placedOrderId, setPlacedOrderId] = useState<string | null>(null);
 
-  const { items } = useCart();
+  const { items, clear } = useCart();
+  const { createOrder } = useOrders();
 
   const lineItems = useMemo(() => {
     return items
@@ -34,6 +40,64 @@ export default function Checkout() {
     return { subtotal, serviceFee, tax, total };
   }, [lineItems]);
 
+  const placeOrder = () => {
+    const email = deliveryEmail.trim();
+    if (!isValidEmail(email)) {
+      setEmailError("Enter a valid email address to receive your keys.");
+      return;
+    }
+
+    const order = createOrder({
+      items,
+      deliveryEmail: email,
+      paymentMethod: selectedPayment,
+      subtotal: totals.subtotal,
+      serviceFee: totals.serviceFee,
+      tax: totals.tax,
+      total: totals.total,
+    });
+
+    setEmailError(null);
+    setPlacedOrderId(order.id);
+    clear();
+    setOrderPlaced(true);
+  };
+
+  if (orderPlaced) {
+    return (
+      <section className="bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div className="rounded-3xl border border-gray-200 bg-white p-10 text-center">
+            <div className="mx-auto h-16 w-16 rounded-full bg-green-50 text-green-600 flex items-center justify-center">
+              <CheckCircle2 size={30} />
+            </div>
+            <h1 className="mt-6 text-3xl md:text-4xl font-extrabold text-gray-900">Order placed</h1>
+            <p className="text-gray-600 mt-3 max-w-xl mx-auto">
+              Your keys are being delivered to <span className="font-semibold text-gray-900">{deliveryEmail}</span>.
+              You can track status and download invoices from your orders page.
+            </p>
+            {placedOrderId ? (
+              <p className="mt-3 text-sm font-semibold text-gray-700">Order ID: {placedOrderId}</p>
+            ) : null}
+            <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
+              <Link
+                to="/orders"
+                className="inline-flex items-center justify-center rounded-xl bg-blue-600 px-6 py-3 text-sm font-semibold text-white hover:bg-blue-700"
+              >
+                View orders
+              </Link>
+              <Link
+                to="/catalog"
+                className="inline-flex items-center justify-center rounded-xl border border-gray-200 px-6 py-3 text-sm font-semibold text-gray-700 hover:border-blue-300 hover:text-blue-600"
+              >
+                Continue shopping
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   if (lineItems.length === 0) {
     return (
@@ -55,6 +119,7 @@ export default function Checkout() {
       </section>
     );
   }
+
   return (
     <div className="bg-gray-50">
       <section className="bg-white border-b border-gray-200">
@@ -85,10 +150,18 @@ export default function Checkout() {
                     <label className="text-sm font-semibold text-gray-700">Email address</label>
                     <input
                       value={deliveryEmail}
-                      onChange={event => setDeliveryEmail(event.target.value)}
+                      onChange={event => {
+                        setDeliveryEmail(event.target.value);
+                        if (emailError) {
+                          setEmailError(null);
+                        }
+                      }}
                       className="mt-2 w-full rounded-xl border border-gray-200 px-4 py-3 text-sm text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
                       placeholder="you@example.com"
                     />
+                    {emailError ? (
+                      <p className="mt-2 text-sm text-red-600">{emailError}</p>
+                    ) : null}
                   </div>
                   <div>
                     <label className="text-sm font-semibold text-gray-700">Delivery region</label>
@@ -154,7 +227,7 @@ export default function Checkout() {
                       <div>
                         <p className="text-sm font-semibold text-gray-900">{item.game!.title}</p>
                         <p className="text-xs text-gray-500">
-                          {item.quantity} × {item.game!.platform}
+                          {item.quantity} x {item.game!.platform}
                         </p>
                       </div>
                       <p className="text-sm font-semibold text-gray-900">
@@ -196,6 +269,7 @@ export default function Checkout() {
                 <div className="mt-6 space-y-3">
                   <button
                     type="button"
+                    onClick={placeOrder}
                     className="w-full inline-flex items-center justify-center rounded-xl bg-orange-500 px-6 py-3 text-sm font-semibold text-white hover:bg-orange-600"
                   >
                     Place order
@@ -230,4 +304,3 @@ export default function Checkout() {
     </div>
   );
 }
-

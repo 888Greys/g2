@@ -1,9 +1,11 @@
 import { Search, ShoppingCart, User, Menu, Heart, Bell } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 import { useCart } from "../context/CartContext";
 
 export function Navbar() {
   const { itemCount, subtotal } = useCart();
+  const { isAuthenticated, user, signOut } = useAuth();
   const categories = [
     { label: "Video Games", to: "/catalog?category=games" },
     { label: "Software", to: "/catalog?category=software" },
@@ -66,10 +68,26 @@ export function Navbar() {
             
             <div className="h-6 w-px bg-gray-200 hidden sm:block mx-1"></div>
             
-            <Link to="/signin" className="flex items-center gap-2 text-gray-700 hover:text-blue-600 transition-colors p-2 rounded-lg hover:bg-gray-50 font-medium text-sm">
-              <User size={20} />
-              <span className="hidden lg:block">Sign In</span>
-            </Link>
+            {isAuthenticated ? (
+              <div className="flex items-center gap-1">
+                <Link to="/account" className="flex items-center gap-2 text-gray-700 hover:text-blue-600 transition-colors p-2 rounded-lg hover:bg-gray-50 font-medium text-sm">
+                  <User size={20} />
+                  <span className="hidden lg:block">{user?.name ?? "Account"}</span>
+                </Link>
+                <button
+                  type="button"
+                  onClick={signOut}
+                  className="hidden lg:block text-xs font-semibold text-gray-500 hover:text-red-600 px-2"
+                >
+                  Sign out
+                </button>
+              </div>
+            ) : (
+              <Link to="/signin" className="flex items-center gap-2 text-gray-700 hover:text-blue-600 transition-colors p-2 rounded-lg hover:bg-gray-50 font-medium text-sm">
+                <User size={20} />
+                <span className="hidden lg:block">Sign In</span>
+              </Link>
+            )}
             
             <Link to="/cart" className="flex items-center gap-2 bg-gray-100 text-gray-900 hover:bg-gray-200 transition-colors px-3 py-2 rounded-lg font-medium text-sm">
               <div className="relative">

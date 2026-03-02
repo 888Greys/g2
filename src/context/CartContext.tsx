@@ -1,10 +1,11 @@
-﻿import { createContext, useContext, useMemo, useState, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import { games } from "../data/games";
-
-type CartItem = {
-  gameId: string;
-  quantity: number;
-};
+import {
+  calculateItemCount,
+  calculateSubtotal,
+  sanitizeCartItems,
+  type CartItem,
+} from "../lib/cart";
 
 type CartContextValue = {
   items: CartItem[];
@@ -17,14 +18,33 @@ type CartContextValue = {
 };
 
 const CartContext = createContext<CartContextValue | undefined>(undefined);
-
+const CART_STORAGE_KEY = "gamekey-market-cart-v1";
+const validGameIds = new Set(games.map(game => game.id));
 const priceLookup = new Map(games.map(game => [game.id, game.currentPrice]));
 
+function readStoredItems(): CartItem[] {
+  if (typeof window === "undefined") {
+    return [];
+  }
+
+  try {
+    const raw = window.localStorage.getItem(CART_STORAGE_KEY);
+    if (!raw) {
+      return [];
+    }
+
+    const parsed = JSON.parse(raw) as unknown;
+    return sanitizeCartItems(parsed, validGameIds);
+  } catch {
+    return [];
+  }
+}
+
 export function CartProvider({ children }: { children: ReactNode }) {
-  const [items, setItems] = useState<CartItem[]>([]);
+  const [items, setItems] = useState<CartItem[]>(readStoredItems);
 
   const addItem = (gameId: string, quantity = 1) => {
-    if (quantity <= 0) {
+    if (quantity <= 0 || !validGameIds.has(gameId)) {
       return;
     }
 
@@ -40,6 +60,10 @@ export function CartProvider({ children }: { children: ReactNode }) {
   };
 
   const updateQuantity = (gameId: string, quantity: number) => {
+    if (!validGameIds.has(gameId)) {
+      return;
+    }
+
     setItems(prev => {
       if (quantity <= 0) {
         return prev.filter(item => item.gameId !== gameId);
@@ -55,16 +79,17 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const clear = () => setItems([]);
 
+  useEffect(() => {
+    window.localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items));
+  }, [items]);
+
   const itemCount = useMemo(
-    () => items.reduce((total, item) => total + item.quantity, 0),
+    () => calculateItemCount(items),
     [items]
   );
 
   const subtotal = useMemo(() => {
-    return items.reduce((total, item) => {
-      const price = priceLookup.get(item.gameId) ?? 0;
-      return total + price * item.quantity;
-    }, 0);
+    return calculateSubtotal(items, priceLookup);
   }, [items]);
 
   const value = useMemo(

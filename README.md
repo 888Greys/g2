@@ -1,20 +1,50 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# GameKey Market
 
-# Run and deploy your AI Studio app
+A Vite + React + TypeScript storefront prototype for selling digital game keys.
 
-This contains everything you need to run your app locally.
+## Tech Stack
 
-View your app in AI Studio: https://ai.studio/apps/a4489459-b634-4e82-8531-414a888bdeb4
+- React 19
+- React Router
+- TypeScript
+- Tailwind CSS (via `@tailwindcss/vite`)
+- Bun (recommended) or npm
 
 ## Run Locally
 
-**Prerequisites:**  Node.js
+Prerequisites:
+- Bun `>=1.0` (recommended) or Node.js `>=20`
 
+Install dependencies:
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+```bash
+bun install
+```
+
+Start dev server:
+
+```bash
+bun run dev
+```
+
+The app runs on `http://localhost:3000`.
+
+## Quality Checks
+
+Type-check:
+
+```bash
+bun run lint
+```
+
+Production build:
+
+```bash
+bun run build
+```
+
+## Notes
+
+- Cart state is persisted in `localStorage`.
+- Product/catalog/cart/checkout flows are frontend-only in this repo.
+- `express`/`better-sqlite3` are present in dependencies but backend runtime is not wired in current source.

@@ -1,7 +1,23 @@
-﻿import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ShieldCheck, Mail, Phone, MapPin, Bell, Lock, ChevronRight, Settings, CreditCard } from "lucide-react";
+import { useAuth } from "../context/AuthContext";
 
 export default function Account() {
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
+
+  const initials = user?.name
+    .split(" ")
+    .filter(Boolean)
+    .slice(0, 2)
+    .map(chunk => chunk[0]?.toUpperCase() ?? "")
+    .join("") || "GM";
+
+  const handleSignOut = () => {
+    signOut();
+    navigate("/signin");
+  };
+
   return (
     <div className="bg-gray-50">
       <section className="bg-white border-b border-gray-200">
@@ -9,12 +25,23 @@ export default function Account() {
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
             <div>
               <p className="text-sm font-semibold text-orange-600">Account</p>
-              <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight mt-2">Welcome back, Alex</h1>
+              <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight mt-2">
+                Welcome back, {user?.name ?? "Gamer"}
+              </h1>
               <p className="text-base text-gray-600 mt-2">Manage your profile, security, and payment settings.</p>
             </div>
-            <Link to="/orders" className="text-sm font-semibold text-blue-600 hover:text-blue-700">
-              View order history
-            </Link>
+            <div className="flex items-center gap-3">
+              <Link to="/orders" className="text-sm font-semibold text-blue-600 hover:text-blue-700">
+                View order history
+              </Link>
+              <button
+                type="button"
+                onClick={handleSignOut}
+                className="rounded-xl border border-gray-200 px-4 py-2 text-sm font-semibold text-gray-700 hover:border-red-300 hover:text-red-600"
+              >
+                Sign out
+              </button>
+            </div>
           </div>
         </div>
       </section>
@@ -25,11 +52,11 @@ export default function Account() {
             <aside className="rounded-3xl border border-gray-200 bg-white p-6 h-fit">
               <div className="flex items-center gap-3">
                 <div className="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 font-bold">
-                  AJ
+                  {initials}
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-gray-900">Alex Johnson</p>
-                  <p className="text-xs text-gray-500">Member since 2023</p>
+                  <p className="text-sm font-semibold text-gray-900">{user?.name ?? "Gamer"}</p>
+                  <p className="text-xs text-gray-500">Member since {user?.memberSince ?? new Date().getFullYear()}</p>
                 </div>
               </div>
               <div className="mt-6 space-y-2 text-sm">
@@ -70,7 +97,7 @@ export default function Account() {
                     <p className="text-xs uppercase tracking-wide text-gray-500">Email</p>
                     <div className="mt-3 flex items-center gap-2 text-sm font-semibold text-gray-900">
                       <Mail size={16} className="text-blue-500" />
-                      alex.johnson@example.com
+                      {user?.email ?? "unknown@example.com"}
                     </div>
                   </div>
                   <div className="rounded-2xl border border-gray-100 bg-gray-50 p-4">
@@ -91,7 +118,7 @@ export default function Account() {
                     <p className="text-xs uppercase tracking-wide text-gray-500">Buyer level</p>
                     <div className="mt-3 flex items-center gap-2 text-sm font-semibold text-gray-900">
                       <ShieldCheck size={16} className="text-green-500" />
-                      Platinum member
+                      Verified member
                     </div>
                   </div>
                 </div>
@@ -103,7 +130,7 @@ export default function Account() {
                     <h3 className="text-lg font-bold text-gray-900">Payment methods</h3>
                     <CreditCard className="text-blue-500" size={18} />
                   </div>
-                  <p className="text-sm text-gray-600 mt-2">Visa ending in 4821 · Expires 05/27</p>
+                  <p className="text-sm text-gray-600 mt-2">Visa ending in 4821 • Expires 05/27</p>
                   <button className="mt-4 text-sm font-semibold text-blue-600 hover:text-blue-700">Manage payments</button>
                 </div>
 
@@ -121,7 +148,7 @@ export default function Account() {
                 <div className="flex items-center justify-between">
                   <div>
                     <h3 className="text-lg font-bold text-gray-900">Security</h3>
-                    <p className="text-sm text-gray-600 mt-2">Password last updated 2 months ago.</p>
+                    <p className="text-sm text-gray-600 mt-2">Password last updated recently.</p>
                   </div>
                   <Lock className="text-gray-500" size={18} />
                 </div>

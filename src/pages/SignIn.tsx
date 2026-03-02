@@ -1,7 +1,37 @@
-﻿import { Link } from "react-router-dom";
+import { useState, type FormEvent } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ShieldCheck, KeyRound, Mail, ChevronRight } from "lucide-react";
+import { useAuth } from "../context/AuthContext";
 
 export default function SignIn() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [remember, setRemember] = useState(true);
+  const [formError, setFormError] = useState<string | null>(null);
+  const { signIn } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const redirectTo = (location.state as { from?: string } | null)?.from ?? "/account";
+
+  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const result = signIn(email, password);
+    if (!result.ok) {
+      setFormError(result.error ?? "Could not sign in.");
+      return;
+    }
+
+    if (!remember) {
+      sessionStorage.setItem("auth_remember_notice", "off");
+    } else {
+      sessionStorage.removeItem("auth_remember_notice");
+    }
+
+    setFormError(null);
+    navigate(redirectTo, { replace: true });
+  };
+
   return (
     <div className="bg-gray-50">
       <section className="bg-white border-b border-gray-200">
@@ -23,13 +53,15 @@ export default function SignIn() {
               <h2 className="text-xl font-bold text-gray-900">Account login</h2>
               <p className="text-sm text-gray-600 mt-2">Use your email and password to continue.</p>
 
-              <form className="mt-6 space-y-5">
+              <form className="mt-6 space-y-5" onSubmit={onSubmit}>
                 <div>
                   <label className="text-sm font-semibold text-gray-700">Email address</label>
                   <div className="mt-2 relative">
                     <Mail size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
                     <input
                       type="email"
+                      value={email}
+                      onChange={event => setEmail(event.target.value)}
                       placeholder="you@example.com"
                       className="w-full rounded-xl border border-gray-200 py-3 pl-11 pr-4 text-sm text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
                     />
@@ -41,22 +73,30 @@ export default function SignIn() {
                     <KeyRound size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
                     <input
                       type="password"
-                      placeholder="••••••••"
+                      value={password}
+                      onChange={event => setPassword(event.target.value)}
+                      placeholder="At least 8 characters"
                       className="w-full rounded-xl border border-gray-200 py-3 pl-11 pr-4 text-sm text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
                     />
                   </div>
                 </div>
                 <div className="flex items-center justify-between text-sm">
                   <label className="flex items-center gap-2 text-gray-600">
-                    <input type="checkbox" className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
+                    <input
+                      type="checkbox"
+                      checked={remember}
+                      onChange={event => setRemember(event.target.checked)}
+                      className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                    />
                     Remember me
                   </label>
                   <Link to="/support" className="font-semibold text-blue-600 hover:text-blue-700">
                     Forgot password?
                   </Link>
                 </div>
+                {formError ? <p className="text-sm text-red-600">{formError}</p> : null}
                 <button
-                  type="button"
+                  type="submit"
                   className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-orange-500 px-6 py-3 text-sm font-semibold text-white hover:bg-orange-600"
                 >
                   Sign in

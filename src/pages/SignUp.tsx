@@ -1,7 +1,35 @@
-﻿import { Link } from "react-router-dom";
+import { useState, type FormEvent } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { UserPlus, Mail, KeyRound, ShieldCheck, ChevronRight } from "lucide-react";
+import { useAuth } from "../context/AuthContext";
 
 export default function SignUp() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [agreed, setAgreed] = useState(false);
+  const [formError, setFormError] = useState<string | null>(null);
+  const { signUp } = useAuth();
+  const navigate = useNavigate();
+
+  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!agreed) {
+      setFormError("You must accept terms and privacy policy.");
+      return;
+    }
+
+    const result = signUp(name, email, password, confirmPassword);
+    if (!result.ok) {
+      setFormError(result.error ?? "Could not create account.");
+      return;
+    }
+
+    setFormError(null);
+    navigate("/account", { replace: true });
+  };
+
   return (
     <div className="bg-gray-50">
       <section className="bg-white border-b border-gray-200">
@@ -23,13 +51,15 @@ export default function SignUp() {
               <h2 className="text-xl font-bold text-gray-900">Create your account</h2>
               <p className="text-sm text-gray-600 mt-2">It only takes a minute to get started.</p>
 
-              <form className="mt-6 space-y-5">
+              <form className="mt-6 space-y-5" onSubmit={onSubmit}>
                 <div>
                   <label className="text-sm font-semibold text-gray-700">Full name</label>
                   <div className="mt-2 relative">
                     <UserPlus size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
                     <input
                       type="text"
+                      value={name}
+                      onChange={event => setName(event.target.value)}
                       placeholder="Alex Johnson"
                       className="w-full rounded-xl border border-gray-200 py-3 pl-11 pr-4 text-sm text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
                     />
@@ -41,6 +71,8 @@ export default function SignUp() {
                     <Mail size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
                     <input
                       type="email"
+                      value={email}
+                      onChange={event => setEmail(event.target.value)}
                       placeholder="you@example.com"
                       className="w-full rounded-xl border border-gray-200 py-3 pl-11 pr-4 text-sm text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
                     />
@@ -52,7 +84,9 @@ export default function SignUp() {
                     <KeyRound size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
                     <input
                       type="password"
-                      placeholder="Create a password"
+                      value={password}
+                      onChange={event => setPassword(event.target.value)}
+                      placeholder="At least 8 characters"
                       className="w-full rounded-xl border border-gray-200 py-3 pl-11 pr-4 text-sm text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
                     />
                   </div>
@@ -63,17 +97,25 @@ export default function SignUp() {
                     <KeyRound size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
                     <input
                       type="password"
+                      value={confirmPassword}
+                      onChange={event => setConfirmPassword(event.target.value)}
                       placeholder="Confirm your password"
                       className="w-full rounded-xl border border-gray-200 py-3 pl-11 pr-4 text-sm text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
                     />
                   </div>
                 </div>
                 <label className="flex items-start gap-2 text-sm text-gray-600">
-                  <input type="checkbox" className="mt-1 h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
-                  I agree to the Terms & Conditions and Privacy Policy.
+                  <input
+                    type="checkbox"
+                    checked={agreed}
+                    onChange={event => setAgreed(event.target.checked)}
+                    className="mt-1 h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                  />
+                  I agree to the Terms and Conditions and Privacy Policy.
                 </label>
+                {formError ? <p className="text-sm text-red-600">{formError}</p> : null}
                 <button
-                  type="button"
+                  type="submit"
                   className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-orange-500 px-6 py-3 text-sm font-semibold text-white hover:bg-orange-600"
                 >
                   Create account
