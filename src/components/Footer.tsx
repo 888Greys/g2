@@ -1,4 +1,5 @@
 import { Facebook, Twitter, Instagram, Youtube, ShieldCheck, CreditCard, HeadphonesIcon } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export function Footer() {
   return (
@@ -39,12 +40,12 @@ export function Footer() {
         {/* Links Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 mb-12">
           <div className="col-span-2 lg:col-span-2">
-            <a href="/" className="flex items-center gap-2 mb-6 inline-block">
+            <Link to="/" className="flex items-center gap-2 mb-6 inline-block">
               <div className="bg-orange-500 text-white font-black text-2xl italic px-3 py-1 rounded-sm tracking-tighter inline-block">
                 G2A
               </div>
               <span className="font-bold text-white text-xl tracking-tight">.COM</span>
-            </a>
+            </Link>
             <p className="text-sm text-gray-400 mb-6 max-w-sm">
               The fastest growing digital gaming marketplace. Buy and sell games, software, and gift cards at the best prices.
             </p>
@@ -59,22 +60,22 @@ export function Footer() {
           <div>
             <h4 className="text-white font-bold mb-4">Marketplace</h4>
             <ul className="space-y-3 text-sm">
-              <li><a href="#" className="hover:text-white transition-colors">Games</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Software</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Gift Cards</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Subscriptions</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Best Deals</a></li>
+              <li><Link to="/catalog?category=games" className="hover:text-white transition-colors">Games</Link></li>
+              <li><Link to="/catalog?category=software" className="hover:text-white transition-colors">Software</Link></li>
+              <li><Link to="/catalog?category=gift-cards" className="hover:text-white transition-colors">Gift Cards</Link></li>
+              <li><Link to="/catalog?category=subscriptions" className="hover:text-white transition-colors">Subscriptions</Link></li>
+              <li><Link to="/catalog?sort=deals" className="hover:text-white transition-colors">Best Deals</Link></li>
             </ul>
           </div>
           
           <div>
             <h4 className="text-white font-bold mb-4">Support</h4>
             <ul className="space-y-3 text-sm">
-              <li><a href="#" className="hover:text-white transition-colors">Support Center</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">How to Buy</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">How to Sell</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Stay Safe</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Contact Us</a></li>
+              <li><Link to="/support" className="hover:text-white transition-colors">Support Center</Link></li>
+              <li><Link to="/support" className="hover:text-white transition-colors">How to Buy</Link></li>
+              <li><Link to="/support" className="hover:text-white transition-colors">How to Sell</Link></li>
+              <li><Link to="/support" className="hover:text-white transition-colors">Stay Safe</Link></li>
+              <li><Link to="/support" className="hover:text-white transition-colors">Contact Us</Link></li>
             </ul>
           </div>
           

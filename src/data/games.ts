@@ -8,6 +8,7 @@ export interface Game {
   discount: number;
   rating: number;
   seller: string;
+  category?: "games" | "software" | "gift-cards" | "gear" | "subscriptions";
   isTrending?: boolean;
   isBestseller?: boolean;
 }

@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import { ChevronRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 interface SectionProps {
   title: string;
@@ -27,13 +28,13 @@ export function Section({ title, subtitle, children, actionText, actionHref, cla
           </div>
           
           {actionText && (
-            <a 
-              href={actionHref || "#"} 
+            <Link
+              to={actionHref || "/catalog"}
               className="group flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 transition-colors"
             >
               {actionText}
               <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
-            </a>
+            </Link>
           )}
         </div>
         

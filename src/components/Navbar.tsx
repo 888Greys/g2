@@ -1,12 +1,24 @@
 import { Search, ShoppingCart, User, Menu, Heart, Bell } from "lucide-react";
+import { Link } from "react-router-dom";
+import { useCart } from "../context/CartContext";
 
 export function Navbar() {
+  const { itemCount, subtotal } = useCart();
+  const categories = [
+    { label: "Video Games", to: "/catalog?category=games" },
+    { label: "Software", to: "/catalog?category=software" },
+    { label: "Gift Cards", to: "/catalog?category=gift-cards" },
+    { label: "Gaming Gear", to: "/catalog?category=gear" },
+    { label: "Subscriptions", to: "/catalog?category=subscriptions" },
+    { label: "Best Deals", to: "/catalog?sort=deals", highlight: true },
+  ];
+
   return (
     <header className="sticky top-0 z-50 w-full bg-white border-b border-gray-200 shadow-sm">
       {/* Top Bar - Announcements/Promos */}
       <div className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white text-xs font-medium py-2 text-center">
         <span className="opacity-90">SUMMER SALE IS HERE! Up to 90% off on top titles.</span>
-        <a href="#" className="ml-2 underline font-bold hover:text-orange-200 transition-colors">Shop Now</a>
+        <Link to="/catalog?sort=deals" className="ml-2 underline font-bold hover:text-orange-200 transition-colors">Shop Now</Link>
       </div>
 
       {/* Main Navigation */}
@@ -18,12 +30,12 @@ export function Navbar() {
             <button className="lg:hidden p-2 text-gray-600 hover:text-gray-900 transition-colors">
               <Menu size={24} />
             </button>
-            <a href="/" className="flex items-center gap-2">
+            <Link to="/" className="flex items-center gap-2">
               <div className="bg-orange-500 text-white font-black text-xl italic px-2 py-1 rounded-sm tracking-tighter">
                 G2A
               </div>
               <span className="hidden sm:block font-bold text-gray-900 text-lg tracking-tight">.COM</span>
-            </a>
+            </Link>
           </div>
 
           {/* Search Bar */}
@@ -54,20 +66,20 @@ export function Navbar() {
             
             <div className="h-6 w-px bg-gray-200 hidden sm:block mx-1"></div>
             
-            <button className="flex items-center gap-2 text-gray-700 hover:text-blue-600 transition-colors p-2 rounded-lg hover:bg-gray-50 font-medium text-sm">
+            <Link to="/signin" className="flex items-center gap-2 text-gray-700 hover:text-blue-600 transition-colors p-2 rounded-lg hover:bg-gray-50 font-medium text-sm">
               <User size={20} />
               <span className="hidden lg:block">Sign In</span>
-            </button>
+            </Link>
             
-            <button className="flex items-center gap-2 bg-gray-100 text-gray-900 hover:bg-gray-200 transition-colors px-3 py-2 rounded-lg font-medium text-sm">
+            <Link to="/cart" className="flex items-center gap-2 bg-gray-100 text-gray-900 hover:bg-gray-200 transition-colors px-3 py-2 rounded-lg font-medium text-sm">
               <div className="relative">
                 <ShoppingCart size={20} />
                 <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-[10px] font-bold h-4 w-4 rounded-full flex items-center justify-center">
-                  0
+                  {itemCount}
                 </span>
               </div>
-              <span className="hidden lg:block ml-1">$0.00</span>
-            </button>
+              <span className="hidden lg:block ml-1">${subtotal.toFixed(2)}</span>
+            </Link>
           </div>
         </div>
       </div>
@@ -76,14 +88,14 @@ export function Navbar() {
       <div className="hidden lg:block border-t border-gray-100 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <nav className="flex space-x-8 py-3">
-            {['Video Games', 'Software', 'Gift Cards', 'Gaming Gear', 'Subscriptions', 'Best Deals'].map((item, i) => (
-              <a 
-                key={item} 
-                href="#" 
-                className={`text-sm font-medium transition-colors ${i === 5 ? 'text-orange-500 hover:text-orange-600' : 'text-gray-600 hover:text-blue-600'}`}
+            {categories.map(item => (
+              <Link
+                key={item.label}
+                to={item.to}
+                className={`text-sm font-medium transition-colors ${item.highlight ? "text-orange-500 hover:text-orange-600" : "text-gray-600 hover:text-blue-600"}`}
               >
-                {item}
-              </a>
+                {item.label}
+              </Link>
             ))}
           </nav>
         </div>

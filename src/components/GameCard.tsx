@@ -1,5 +1,7 @@
 import { Game } from "../data/games";
 import { ShoppingCart, Heart, ShieldCheck } from "lucide-react";
+import { Link } from "react-router-dom";
+import { useCart } from "../context/CartContext";
 
 interface GameCardProps {
   key?: string | number;
@@ -7,8 +9,10 @@ interface GameCardProps {
 }
 
 export function GameCard({ game }: GameCardProps) {
+  const { addItem } = useCart();
+
   return (
-    <div className="group flex flex-col bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-200 border border-gray-100 relative cursor-pointer">
+    <div className="group flex flex-col bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-200 border border-gray-100 relative">
       {/* Discount Badge */}
       {game.discount > 0 && (
         <div className="absolute top-2 left-2 z-10 bg-orange-500 text-white text-xs font-bold px-2 py-1 rounded-md">
@@ -18,18 +22,29 @@ export function GameCard({ game }: GameCardProps) {
       
       {/* Cover Image */}
       <div className="relative aspect-[3/4] overflow-hidden bg-gray-100">
-        <img 
-          src={game.coverUrl} 
-          alt={game.title} 
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-          referrerPolicy="no-referrer"
-        />
+        <Link to={`/product/${game.id}`} className="block">
+          <img
+            src={game.coverUrl}
+            alt={game.title}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+            referrerPolicy="no-referrer"
+          />
+        </Link>
         {/* Quick Actions Overlay */}
-        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center gap-3">
-          <button className="bg-white p-2 rounded-full hover:bg-orange-500 hover:text-white transition-colors text-gray-700">
+        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center gap-3 pointer-events-none">
+          <button
+            type="button"
+            onClick={() => addItem(game.id)}
+            className="bg-white p-2 rounded-full hover:bg-orange-500 hover:text-white transition-colors text-gray-700 pointer-events-auto"
+            aria-label={`Add ${game.title} to cart`}
+          >
             <ShoppingCart size={20} />
           </button>
-          <button className="bg-white p-2 rounded-full hover:bg-red-500 hover:text-white transition-colors text-gray-700">
+          <button
+            type="button"
+            className="bg-white p-2 rounded-full hover:bg-red-500 hover:text-white transition-colors text-gray-700 pointer-events-auto"
+            aria-label={`Save ${game.title} to wishlist`}
+          >
             <Heart size={20} />
           </button>
         </div>
@@ -43,9 +58,12 @@ export function GameCard({ game }: GameCardProps) {
           </span>
         </div>
         
-        <h3 className="font-semibold text-gray-900 text-sm line-clamp-2 mb-3 group-hover:text-blue-600 transition-colors">
+        <Link
+          to={`/product/${game.id}`}
+          className="font-semibold text-gray-900 text-sm line-clamp-2 mb-3 group-hover:text-blue-600 transition-colors"
+        >
           {game.title}
-        </h3>
+        </Link>
         
         <div className="mt-auto">
           <div className="flex items-center gap-1 text-xs text-gray-500 mb-1">
