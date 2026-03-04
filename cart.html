@@ -1,0 +1,638 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GameKey Market - Product</title>
+  <style>
+    :root {
+      --bg:#f2f6fc;
+      --surface:#fff;
+      --text:#111827;
+      --muted:#62748f;
+      --text-light:#9aa7ba;
+      --line:#dce6f5;
+      --blue:#1f6bff;
+      --blue-2:#1558d3;
+      --green:#0ea46f;
+      --red:#ef4444;
+      --purple:#7a3bf4;
+      --shadow:0 8px 24px rgba(15,23,42,.08);
+      --font-main:"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;font-family:var(--font-main)}
+    body{
+      background:radial-gradient(circle at top right,rgba(31,107,255,.08),transparent 35%),var(--bg);
+      color:var(--text);
+      line-height:1.4;
+      -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
+    }
+    a{text-decoration:none;color:var(--blue)}
+    button{border:none;background:none;cursor:pointer}
+
+    .site-header{position:sticky;top:0;z-index:60;background:#fff;border-bottom:1px solid #e5e7eb;box-shadow:0 1px 3px rgba(15,23,42,.06)}
+    .promo{background:linear-gradient(90deg,#2563eb,#4338ca);color:#fff;font-size:12px;font-weight:600;text-align:center;padding:8px 14px}
+    .promo a{color:#fff;text-decoration:underline;font-weight:800;margin-left:6px}
+    .header-wrap{max-width:1180px;margin:0 auto;padding:0 14px}
+    .main-head{height:64px;display:flex;align-items:center;justify-content:space-between;gap:14px}
+    .brand{display:flex;align-items:center;gap:6px;color:#111827}
+    .brand .g2a{background:#f97316;color:#fff;font-weight:900;font-size:20px;letter-spacing:-.03em;padding:2px 8px;border-radius:4px;font-style:italic}
+    .brand .dotcom{font-size:18px;font-weight:800;color:#111827}
+    .site-search{flex:1;max-width:620px;display:flex;align-items:center;gap:8px;background:#f9fafb;border:1px solid #d1d5db;border-radius:999px;padding:4px 4px 4px 12px}
+    .site-search input{flex:1;border:none;background:transparent;outline:none;font-size:14px;color:#111827}
+    .site-search button{border:none;background:#2563eb;color:#fff;border-radius:999px;padding:8px 14px;font-size:13px;font-weight:700;cursor:pointer}
+    .actions{display:flex;align-items:center;gap:8px}
+    .icon-btn,.profile-btn{height:38px;min-width:38px;border:1px solid #e5e7eb;background:#fff;color:#374151;border-radius:10px;display:flex;align-items:center;justify-content:center;padding:0 10px;gap:6px}
+    .icon-btn:hover,.profile-btn:hover{border-color:#bfdbfe;color:#1d4ed8;background:#eff6ff}
+    .profile-btn{font-size:13px;font-weight:700}
+    .cart-btn{height:38px;background:#f3f4f6;color:#111827;border-radius:10px;padding:0 12px;display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700}
+    .cart-btn:hover{background:#e5e7eb}
+    .cart-icon{position:relative;display:inline-flex;align-items:center;justify-content:center}
+    .cart-count{position:absolute;top:-7px;right:-8px;background:#f97316;color:#fff;font-size:10px;font-weight:800;border-radius:999px;line-height:1;padding:2px 5px;min-width:16px;text-align:center}
+    .cats{border-top:1px solid #f1f5f9;background:#fff}
+    .cats-inner{max-width:1180px;margin:0 auto;padding:0 14px;display:flex;gap:22px;overflow-x:auto;white-space:nowrap}
+    .cats a{display:block;padding:10px 0;font-size:13px;font-weight:600;color:#667085}
+    .cats a:hover{color:#1d4ed8}
+    .cats a.deal{color:#f97316;font-weight:700}
+
+    .container{max-width:1180px;margin:0 auto;padding:18px 14px 48px}
+    .crumbs{font-size:12px;color:var(--muted);margin-bottom:14px}
+    .hero{background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:16px}
+    .hero h1{font-size:clamp(1.3rem,1rem + 1.1vw,1.9rem);margin-bottom:8px}
+    .rating{font-size:13px;color:var(--muted);margin-bottom:16px}
+    .grid{display:grid;grid-template-columns:1.2fr .9fr 1fr;gap:16px}
+
+    .gallery .main{aspect-ratio:16/9;border-radius:12px;position:relative;overflow:hidden;border:1px solid var(--line);background:#0f172a}
+    .gallery .main img{width:100%;height:100%;display:block;object-fit:cover}
+    .thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px}
+    .thumb{aspect-ratio:16/9;border-radius:8px;border:1px solid var(--line);overflow:hidden;background:#d8e2f2}
+    .thumb img{width:100%;height:100%;display:block;object-fit:cover}
+
+    .specs ul{display:grid;gap:10px}
+    .specs li{display:flex;gap:10px;align-items:flex-start;background:#f8fbff;border:1px solid var(--line);border-radius:10px;padding:10px}
+    .specs .dot{width:24px;height:24px;border-radius:50%;background:#e8f3ff;display:flex;align-items:center;justify-content:center;font-size:12px;color:#0b5edd;flex:0 0 24px}
+    .specs .meta{font-size:13px;color:var(--muted)}
+    .specs .meta b{color:var(--text)}
+
+    .buybox{position:relative}
+    .badge{position:absolute;top:-10px;right:10px;background:#fff;border:1px solid var(--line);border-bottom:none;border-radius:10px 10px 0 0;padding:4px 8px;font-size:11px}
+    .badge b{background:var(--purple);color:#fff;border-radius:4px;padding:2px 5px;margin-right:6px}
+    .panel{border:1px solid var(--line);border-radius:12px;background:#fff;padding:14px;box-shadow:var(--shadow)}
+    .panel.highlight{outline:3px solid rgba(31,107,255,.2)}
+    .seller{font-size:12px;color:var(--muted);margin-bottom:10px}
+    .price-opt{display:grid;gap:8px;margin-bottom:10px}
+    .price-row{border:1px solid transparent;border-radius:10px;padding:10px;display:flex;gap:10px;align-items:flex-start}
+    .price-row.active{border-color:#bcd4ff;background:#f3f8ff}
+    .radio{width:18px;height:18px;border:2px solid #c8d2e2;border-radius:50%;margin-top:2px;flex:0 0 18px}
+    .price-row.active .radio{border-color:var(--blue);box-shadow:inset 0 0 0 4px #fff;background:var(--blue)}
+    .price{font-size:22px;font-weight:800;line-height:1}
+    .sub{font-size:12px;color:var(--muted)}
+    .sub .save{color:var(--green);font-weight:700}
+    .sub .plus{color:var(--purple);font-weight:700}
+    .btn{width:100%;padding:12px;border-radius:10px;font-weight:700;font-size:14px}
+    .btn.primary{background:var(--blue);color:#fff}
+    .btn.primary:hover{background:var(--blue-2)}
+    .btn.alt{background:#ffc439;color:#111;margin-top:8px}
+    .other{margin-top:10px;font-size:13px;color:var(--blue);font-weight:700}
+
+    .details{margin-top:18px;border:1px solid var(--line);border-radius:14px;background:#fff;box-shadow:var(--shadow);overflow:hidden}
+    .tabs{display:flex;gap:20px;border-bottom:1px solid var(--line);padding:0 14px;background:#fbfdff}
+    .tab{padding:14px 0;font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;border-bottom:2px solid transparent}
+    .tab.active{color:var(--text);border-bottom-color:var(--blue)}
+    .pane{display:none;padding:14px}
+    .pane.active{display:block}
+
+    .bundle-head{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:10px}
+    .bundle-head h2{font-size:clamp(1.1rem,.9rem + .8vw,1.5rem)}
+    .bundle{display:grid;grid-template-columns:1fr 1fr 240px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;margin-bottom:14px}
+    .bcol{padding:12px;border-right:1px solid var(--line);position:relative}
+    .bcol:last-child{border-right:none;background:#f8fbff}
+    .off{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px}
+    .item{display:flex;gap:10px}
+    .img{width:76px;height:98px;border-radius:8px;overflow:hidden;flex:0 0 76px;border:1px solid var(--line);background:#e5ebf5}
+    .img img{width:100%;height:100%;display:block;object-fit:cover}
+    .title{font-size:13px;font-weight:700;margin-bottom:6px}
+    .meta{font-size:11px;color:var(--muted);margin-bottom:6px}
+    .meta .g{color:var(--green);font-weight:700}
+    .price2{font-size:15px;font-weight:800}
+    .disc{display:inline-block;background:var(--red);color:#fff;border-radius:4px;padding:1px 5px;font-size:10px;font-weight:700;margin-left:6px}
+    .old{font-size:11px;color:var(--text-light);text-decoration:line-through}
+    .sum{font-size:26px;font-weight:800;line-height:1}
+    .save2{font-size:12px;color:var(--green);font-weight:700;margin:4px 0 10px}
+
+    .offers-h{display:flex;justify-content:space-between;align-items:flex-end;gap:10px;margin-bottom:10px}
+    .offers-h h3{font-size:clamp(1rem,.86rem + .6vw,1.3rem)}
+    .offers-h p{font-size:12px;color:var(--muted)}
+    .rows{display:grid;gap:8px}
+    .row{border:1px solid var(--line);border-radius:10px;padding:10px;display:flex;justify-content:space-between;gap:10px;align-items:center}
+    .row.hl{background:#eef5ff;border-color:#c8dafd}
+    .info{display:flex;gap:10px;align-items:center}
+    .avatar{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700}
+    .a1{background:linear-gradient(135deg,#11998e,#38ef7d)}.a2{background:linear-gradient(135deg,#fc466b,#3f5efb)}.a3{background:#111}.a4{background:#1a1a1a;color:#f5af19}
+    .name{font-size:13px;font-weight:700}
+    .m1,.m2{font-size:11px;color:var(--muted)}
+    .side{display:flex;gap:10px;align-items:center}
+    .p-main{font-size:16px;font-weight:800;text-align:right}
+    .p-sub{font-size:10px;color:var(--purple);text-transform:uppercase;font-weight:700;text-align:right}
+    .mini{width:34px;height:34px;border-radius:8px;background:var(--blue);color:#fff}
+    .about h3{font-size:clamp(1.1rem,.95rem + .7vw,1.4rem);margin-bottom:10px}
+    .cards{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x proximity;padding-bottom:4px}
+    .card{flex:0 0 clamp(185px,22vw,220px);scroll-snap-align:start}
+    .lab{font-size:10px;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:6px}
+    .card-in{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff}
+    .vis{height:190px;position:relative;overflow:hidden;background:#111}
+    .vis img{width:100%;height:100%;display:block;object-fit:cover;transition:transform .35s ease}
+    .card-in:hover .vis img{transform:scale(1.04)}
+    .vis::after{content:"";position:absolute;left:0;right:0;bottom:0;height:44%;background:linear-gradient(to top,rgba(15,23,42,.8),rgba(15,23,42,0))}
+    .vis .badge2{position:absolute;top:0;left:0;right:0;padding:5px 0;font-size:10px;font-weight:800;background:rgba(15,23,42,.76);color:#fff;text-transform:uppercase;letter-spacing:.05em}
+    .dets{padding:10px}
+    .ct{font-size:12px;font-weight:700;min-height:32px;margin-bottom:4px}
+    .cm{font-size:10px;color:var(--muted)}
+    .cr{font-size:10px;color:var(--green);font-weight:700;margin-bottom:6px}
+    .cp{font-size:14px;font-weight:800}
+    .cp span{font-size:10px;font-weight:700}
+    .co{font-size:10px;color:var(--text-light);text-decoration:line-through}
+
+    @media (max-width:1080px){
+      .grid{grid-template-columns:1fr 1fr}
+      .buybox{grid-column:span 2}
+      .bundle{grid-template-columns:1fr}
+      .bcol{border-right:none;border-bottom:1px solid var(--line)}
+      .bcol:last-child{border-bottom:none}
+      .site-search{max-width:none}
+    }
+    @media (max-width:768px){
+      .grid{grid-template-columns:1fr}
+      .buybox{grid-column:span 1}
+      .offers-h,.bundle-head{flex-direction:column;align-items:flex-start}
+      .row{flex-direction:column;align-items:flex-start}
+      .side{width:100%;justify-content:space-between}
+      .site-search{display:none}
+      .profile-btn span{display:none}
+      .cats{display:none}
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="promo">SUMMER SALE IS HERE! Up to 90% off on top titles.<a href="/catalog?sort=deals">Shop Now</a></div>
+    <div class="header-wrap">
+      <div class="main-head">
+        <a class="brand" href="/"><span class="g2a">G2A</span><span class="dotcom">.COM</span></a>
+        <div class="site-search">
+          <input type="text" placeholder="Search for games, software, gift cards..." />
+          <button type="button">Search</button>
+        </div>
+        <div class="actions">
+          <button class="icon-btn" type="button" aria-label="Wishlist">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s-6.7-4.4-9.2-8C.6 9.4 2.6 5 6.8 5c2.2 0 3.4 1.1 5.2 3 1.8-1.9 3-3 5.2-3 4.2 0 6.2 4.4 4 8-2.5 3.6-9.2 8-9.2 8Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+          </button>
+          <a class="profile-btn" href="/signin" aria-label="Profile">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 21a8 8 0 1 0-16 0M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            <span>Profile</span>
+          </a>
+          <a class="cart-btn" href="/cart-items">
+            <span class="cart-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 4h2l2.1 10.2A2 2 0 0 0 9 16h8.8a2 2 0 0 0 1.9-1.4L22 8H7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="10" cy="20" r="1.6" fill="currentColor"/><circle cx="18" cy="20" r="1.6" fill="currentColor"/></svg>
+              <span class="cart-count" id="cartCount">0</span>
+            </span>
+            <span id="cartSubtotal">$0.00</span>
+          </a>
+        </div>
+      </div>
+    </div>
+    <nav class="cats">
+      <div class="cats-inner">
+        <a href="/catalog?category=games">Video Games</a>
+        <a href="/catalog?category=software">Software</a>
+        <a href="/catalog?category=gift-cards">Gift Cards</a>
+        <a href="/catalog?category=gear">Gaming Gear</a>
+        <a href="/catalog?category=subscriptions">Subscriptions</a>
+        <a class="deal" href="/catalog?sort=deals">Best Deals</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container">
+    <div class="crumbs" id="crumbsTrail">G2A &gt; Gaming &gt; Games &gt; Racing &gt; The Crew Motorfest</div>
+
+    <section class="hero">
+      <h1 id="productTitle">The Crew Motorfest | Cross-Gen Bundle (Xbox Series X/S) - Xbox Live Account - GLOBAL</h1>
+      <div class="rating" id="productRating">&#9733;&#9733;&#9733;&#9733;&#9733; 5.0 | 3 reviews</div>
+
+      <div class="grid" id="productTop">
+        <div class="gallery">
+          <div class="main">
+            <img id="mainProductImage" src="https://picsum.photos/seed/crew-main/1200/675" alt="The Crew Motorfest cover art" referrerpolicy="no-referrer" />
+          </div>
+          <div class="thumbs">
+            <div class="thumb"><img class="product-thumb" src="https://picsum.photos/seed/crew-shot-1/400/225" alt="Product screenshot 1" loading="lazy" referrerpolicy="no-referrer" /></div>
+            <div class="thumb"><img class="product-thumb" src="https://picsum.photos/seed/crew-shot-2/400/225" alt="Product screenshot 2" loading="lazy" referrerpolicy="no-referrer" /></div>
+            <div class="thumb"><img class="product-thumb" src="https://picsum.photos/seed/crew-shot-3/400/225" alt="Product screenshot 3" loading="lazy" referrerpolicy="no-referrer" /></div>
+            <div class="thumb"><img class="product-thumb" src="https://picsum.photos/seed/crew-shot-4/400/225" alt="Product screenshot 4" loading="lazy" referrerpolicy="no-referrer" /></div>
+          </div>
+        </div>
+
+        <div class="specs">
+          <ul>
+            <li><div class="dot">&#10003;</div><div class="meta"><b>Platform:</b> <span id="platformValue">Xbox Live</span><br><a href="#">Check activation guide</a></div></li>
+            <li><div class="dot">&#10003;</div><div class="meta"><b>Can be activated in:</b> Kenya<br><a href="#">Check country restrictions</a></div></li>
+            <li><div class="dot">&#127758;</div><div class="meta"><b>Region:</b> GLOBAL</div></li>
+            <li><div class="dot">&#128100;</div><div class="meta"><b>Type:</b> Account</div></li>
+          </ul>
+        </div>
+
+        <div class="buybox">
+          <div class="badge"><b>G2A PLUS</b> Earn Plus Points: 104</div>
+          <div class="panel" id="buyBox">
+            <div class="seller">Offer from business seller: <b id="sellerName">Buygames_ps</b> (98% positive)</div>
+            <div class="price-opt" id="priceOptions">
+              <div class="price-row" data-value="11.74" data-tier="plus"><div class="radio"></div><div><div class="price">11.74 USD</div><div class="sub">Save <span class="save">1.31 USD</span> with <span class="plus">Plus Premium</span></div></div></div>
+              <div class="price-row active" data-value="13.05" data-tier="regular"><div class="radio"></div><div><div class="price">13.05 USD</div></div></div>
+            </div>
+            <button class="btn primary" data-add-cart>Add to cart</button>
+            <button class="btn alt">PayPal Buy Now</button>
+            <div class="sub" style="text-align:center;margin-bottom:10px">Total cost with payment fee: <b id="totalCost" style="color:var(--text)">13.27 USD</b></div>
+            <button class="other" data-tab-trigger="offers">View offers from 4 business sellers</button>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="details" id="itemDetails">
+      <div class="tabs">
+        <button class="tab active" data-tab="offers">Offers</button>
+        <button class="tab" data-tab="about">About this item</button>
+      </div>
+
+      <div class="pane active" id="panel-offers">
+        <div class="bundle-head">
+          <h2>Exclusive bundle deals</h2>
+          <div class="sub">Bundle 1 of 3</div>
+        </div>
+
+        <div class="bundle">
+          <div class="bcol">
+            <div class="off">Offer from: Gaming4you</div>
+            <div class="item">
+              <div class="img"><img src="https://picsum.photos/seed/random-deluxe-key/180/240" alt="Random deluxe key art" loading="lazy" referrerpolicy="no-referrer" /></div>
+              <div>
+                <div class="title" id="bundlePrimaryTitle">Try to Get Marathon - Random Deluxe Edition 1 Key</div>
+                <div class="meta">Steam &middot; Key &middot; <span class="g">GLOBAL</span></div>
+                <div class="price2">4.74 USD <span class="disc">-93%</span></div>
+                <div class="old">69.56 USD</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bcol">
+            <div class="off">Offer from: Gaming4you</div>
+            <div class="item">
+              <div class="img"><img src="https://picsum.photos/seed/goty-random-key/180/240" alt="Game of the year random key art" loading="lazy" referrerpolicy="no-referrer" /></div>
+              <div>
+                <div class="title">Game of The Year - Random 1 Key PC</div>
+                <div class="meta">Steam &middot; Key &middot; <span class="g">GLOBAL</span></div>
+                <div class="price2">3.88 USD <span class="disc">-95%</span></div>
+                <div class="old">81.15 USD</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bcol">
+            <div class="sum">8.62 USD</div>
+            <div class="save2">You save: 142.09 USD</div>
+            <button class="btn primary" style="margin:0 0 8px" data-action="focus-buybox" data-add-cart>Add to cart</button>
+            <button class="btn" style="margin:0;border:1px solid #ceddff;color:var(--blue);background:#fff" data-tab-trigger="about">Check item details</button>
+          </div>
+        </div>
+
+        <div class="offers-h">
+          <div>
+            <h3>Offers from 4 business sellers</h3>
+            <p>Instant delivery offers</p>
+          </div>
+          <div class="sub">Sort by: Best price</div>
+        </div>
+
+        <div class="rows">
+          <div class="row hl">
+            <div class="info"><div class="avatar a1">D</div><div><div class="name">Dream_codes</div><div class="m1">Sponsored &middot; Excellent seller</div><div class="m2"><b>100%</b> positive feedback | 88904 sales</div></div></div>
+            <div class="side"><div><div class="p-main">$ 5.28</div><div class="p-sub">Save with G2A Plus</div></div><div class="p-main">$ 5.87</div><button class="mini" data-action="focus-buybox" data-add-cart>&#128722;</button></div>
+          </div>
+          <div class="row">
+            <div class="info"><div class="avatar a2">G</div><div><div class="name">Gaming4you</div><div class="m1">Excellent seller</div><div class="m2"><b>100%</b> positive feedback | 140837 sales</div></div></div>
+            <div class="side"><div><div class="p-main">$ 4.49</div><div class="p-sub">Save with G2A Plus</div></div><div class="p-main">$ 4.99</div><button class="mini" data-action="focus-buybox" data-add-cart>&#128722;</button></div>
+          </div>
+          <div class="row">
+            <div class="info"><div class="avatar a3">W</div><div><div class="name">World_of_games</div><div class="m1">Excellent seller</div><div class="m2"><b>99%</b> positive feedback | 58823 sales</div></div></div>
+            <div class="side"><div><div class="p-main">$ 4.53</div><div class="p-sub">Save with G2A Plus</div></div><div class="p-main">$ 5.04</div><button class="mini" data-action="focus-buybox" data-add-cart>&#128722;</button></div>
+          </div>
+          <div class="row">
+            <div class="info"><div class="avatar a4">K</div><div><div class="name">Keyzoo</div><div class="m1">Excellent seller</div><div class="m2"><b>98%</b> positive feedback | 40265 sales</div></div></div>
+            <div class="side"><div><div class="p-main">$ 4.62</div><div class="p-sub">Save with G2A Plus</div></div><div class="p-main">$ 5.13</div><button class="mini" data-action="focus-buybox" data-add-cart>&#128722;</button></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pane" id="panel-about">
+        <div class="about">
+          <h3>Time to get what you've been thinking of</h3>
+          <div class="cards">
+            <article class="card">
+              <div class="lab">Offers from 2 sellers</div>
+              <div class="card-in" data-action="focus-buybox">
+                <div class="vis">
+                  <div class="badge2">Cross-Gen Bundle</div>
+                  <img src="https://picsum.photos/seed/crew-crossgen/440/340" alt="The Crew Motorfest cross-gen bundle art" loading="lazy" referrerpolicy="no-referrer" />
+                </div>
+                <div class="dets">
+                  <div class="ct" id="aboutPrimaryTitle">The Crew Motorfest Cross-Gen Bundle</div>
+                  <div class="cm">Xbox Live &middot; Account</div>
+                  <div class="cr">GLOBAL</div>
+                  <div class="cp">12.73 <span>USD</span> <span class="disc">-84%</span></div>
+                  <div class="co">81.15 USD</div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <div class="about" style="margin-top:16px">
+          <h3>Looking for similar items? There you go!</h3>
+          <div class="cards">
+            <article class="card">
+              <div class="lab">Offers from 25 sellers</div>
+              <div class="card-in" data-action="focus-buybox">
+                <div class="vis">
+                  <div class="badge2">Grand Random</div>
+                  <img src="https://picsum.photos/seed/grand-random-key/440/340" alt="Grand random key cover" loading="lazy" referrerpolicy="no-referrer" />
+                </div>
+                <div class="dets">
+                  <div class="ct">Grand Random 1 Key PC</div>
+                  <div class="cm">Steam &middot; Key</div>
+                  <div class="cr">GLOBAL</div>
+                  <div class="cp">0.85 <span>USD</span> <span class="disc">-98%</span></div>
+                  <div class="co">34.77 USD</div>
+                </div>
+              </div>
+            </article>
+            <article class="card">
+              <div class="lab">Sponsored</div>
+              <div class="card-in" data-action="focus-buybox">
+                <div class="vis">
+                  <div class="badge2">VIP Bundle</div>
+                  <img src="https://picsum.photos/seed/vip-random-keys/440/340" alt="Random VIP key bundle cover" loading="lazy" referrerpolicy="no-referrer" />
+                </div>
+                <div class="dets">
+                  <div class="ct">Random VIP 5 Keys PC</div>
+                  <div class="cm">Steam &middot; Key</div>
+                  <div class="cr">GLOBAL</div>
+                  <div class="cp">8.51 <span>USD</span> <span class="disc">-96%</span></div>
+                  <div class="co">197.05 USD</div>
+                </div>
+              </div>
+            </article>
+            <article class="card">
+              <div class="lab">Offers from 29 sellers</div>
+              <div class="card-in" data-action="focus-buybox">
+                <div class="vis">
+                  <div class="badge2">Elite Bundle</div>
+                  <img src="https://picsum.photos/seed/elite-random-keys/440/340" alt="Random elite key bundle cover" loading="lazy" referrerpolicy="no-referrer" />
+                </div>
+                <div class="dets">
+                  <div class="ct">Random ELITE 5 Keys PC</div>
+                  <div class="cm">Steam &middot; Key</div>
+                  <div class="cr">GLOBAL</div>
+                  <div class="cp">3.15 <span>USD</span> <span class="disc">-96%</span></div>
+                  <div class="co">76.47 USD</div>
+                </div>
+              </div>
+            </article>
+            <article class="card">
+              <div class="lab">Offers from 26 sellers</div>
+              <div class="card-in" data-action="focus-buybox">
+                <div class="vis">
+                  <div class="badge2">Diamond Pack</div>
+                  <img src="https://picsum.photos/seed/diamond-random-keys/440/340" alt="Random diamond key bundle cover" loading="lazy" referrerpolicy="no-referrer" />
+                </div>
+                <div class="dets">
+                  <div class="ct">Random DIAMOND 5 Keys PC</div>
+                  <div class="cm">Steam &middot; Key</div>
+                  <div class="cr">GLOBAL</div>
+                  <div class="cp">5.00 <span>USD</span> <span class="disc">-96%</span></div>
+                  <div class="co">139.08 USD</div>
+                </div>
+              </div>
+            </article>
+            <article class="card">
+              <div class="lab">Offers from 8 sellers</div>
+              <div class="card-in" data-action="focus-buybox">
+                <div class="vis">
+                  <div class="badge2">GOTY Random</div>
+                  <img src="https://picsum.photos/seed/goty-random-1/440/340" alt="Game of the year random key cover" loading="lazy" referrerpolicy="no-referrer" />
+                </div>
+                <div class="dets">
+                  <div class="ct">Game of The Year - Random 1 Key PC</div>
+                  <div class="cm">Steam &middot; Key</div>
+                  <div class="cr">GLOBAL</div>
+                  <div class="cp">3.68 <span>USD</span> <span class="disc">-95%</span></div>
+                  <div class="co">81.15 USD</div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const CART_STORAGE_KEY = 'gamekey-market-cart-v1';
+      const LAST_PRODUCT_KEY = 'gamekey-market-last-product';
+      const catalog = {
+        '1': { id: '1', title: 'Elden Ring: Shadow of the Erdtree', coverUrl: '/images/catalog/rpg-cover.avif', platform: 'Steam', originalPrice: 39.99, currentPrice: 34.99, discount: 12, rating: 4.9, seller: 'GameKeysStore' },
+        '2': { id: '2', title: 'Helldivers 2', coverUrl: '/images/catalog/coop-shooter.webp', platform: 'Steam', originalPrice: 39.99, currentPrice: 31.50, discount: 21, rating: 4.8, seller: 'DigitalPlay' },
+        '3': { id: '3', title: "Dragon's Dogma 2", coverUrl: '/images/catalog/fantasy-cover-a.avif', platform: 'Steam', originalPrice: 69.99, currentPrice: 45.99, discount: 34, rating: 4.2, seller: 'KeyMaster' },
+        '4': { id: '4', title: 'Cyberpunk 2077: Phantom Liberty', coverUrl: '/images/catalog/scifi-arena.webp', platform: 'GOG.com', originalPrice: 29.99, currentPrice: 22.49, discount: 25, rating: 4.7, seller: 'CDPR_Fan' },
+        '5': { id: '5', title: "Baldur's Gate 3", coverUrl: '/images/catalog/fantasy-cover-b.avif', platform: 'Steam', originalPrice: 59.99, currentPrice: 53.99, discount: 10, rating: 5.0, seller: 'LarianStore' },
+        '6': { id: '6', title: 'Horizon Forbidden West Complete Edition', coverUrl: '/images/catalog/action-cover.avif', platform: 'Steam', originalPrice: 59.99, currentPrice: 41.99, discount: 30, rating: 4.6, seller: 'SonyKeys' },
+        '7': { id: '7', title: "Ghost of Tsushima DIRECTOR'S CUT", coverUrl: '/images/catalog/marathon-art.webp', platform: 'Steam', originalPrice: 59.99, currentPrice: 49.99, discount: 16, rating: 4.9, seller: 'SamuraiGames' },
+        '8': { id: '8', title: 'Palworld', coverUrl: '/images/catalog/scifi-arena.webp', platform: 'Steam', originalPrice: 29.99, currentPrice: 26.99, discount: 10, rating: 4.5, seller: 'PocketKeys' },
+        '9': { id: '9', title: 'EA SPORTS FC 24', coverUrl: '/images/catalog/ea-fc.webp', platform: 'EA App', originalPrice: 69.99, currentPrice: 19.99, discount: 71, rating: 3.8, seller: 'SportsHub' },
+        '10': { id: '10', title: 'Red Dead Redemption 2', coverUrl: '/images/catalog/rpg-cover.avif', platform: 'Rockstar', originalPrice: 59.99, currentPrice: 15.99, discount: 73, rating: 4.9, seller: 'CowboyStore' }
+      };
+
+      function money(value) {
+        return Number(value).toFixed(2);
+      }
+
+      function readCart() {
+        try {
+          const raw = localStorage.getItem(CART_STORAGE_KEY);
+          if (!raw) return [];
+          const parsed = JSON.parse(raw);
+          if (!Array.isArray(parsed)) return [];
+          return parsed
+            .filter((item) => item && typeof item.gameId === 'string')
+            .map((item) => ({
+              gameId: item.gameId,
+              quantity: Math.max(1, Number(item.quantity) || 1),
+            }));
+        } catch {
+          return [];
+        }
+      }
+
+      function writeCart(items) {
+        localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items));
+      }
+
+      function refreshCartHeader() {
+        const items = readCart();
+        let count = 0;
+        let subtotal = 0;
+
+        items.forEach((item) => {
+          const game = catalog[item.gameId];
+          if (!game) return;
+          count += item.quantity;
+          subtotal += game.currentPrice * item.quantity;
+        });
+
+        const cartCount = document.getElementById('cartCount');
+        const cartSubtotal = document.getElementById('cartSubtotal');
+        if (cartCount) cartCount.textContent = String(count);
+        if (cartSubtotal) cartSubtotal.textContent = '$' + money(subtotal);
+      }
+
+      function getSelectedProduct() {
+        const params = new URLSearchParams(window.location.search);
+        const fromUrl = params.get('product');
+        const fromStorage = localStorage.getItem(LAST_PRODUCT_KEY);
+        const selectedId = (fromUrl && catalog[fromUrl] ? fromUrl : null) || (fromStorage && catalog[fromStorage] ? fromStorage : null) || '1';
+        localStorage.setItem(LAST_PRODUCT_KEY, selectedId);
+        return catalog[selectedId];
+      }
+
+      function updateProductView(product) {
+        const titleNode = document.getElementById('productTitle');
+        const ratingNode = document.getElementById('productRating');
+        const crumbsNode = document.getElementById('crumbsTrail');
+        const platformNode = document.getElementById('platformValue');
+        const sellerNode = document.getElementById('sellerName');
+        const mainImage = document.getElementById('mainProductImage');
+        const thumbs = document.querySelectorAll('.product-thumb');
+        const bundleTitle = document.getElementById('bundlePrimaryTitle');
+        const aboutTitle = document.getElementById('aboutPrimaryTitle');
+        const plusPriceNode = document.querySelector('.price-row[data-tier="plus"] .price');
+        const regularPriceNode = document.querySelector('.price-row[data-tier="regular"] .price');
+        const saveNode = document.querySelector('.price-row[data-tier="plus"] .save');
+        const totalCostNode = document.getElementById('totalCost');
+
+        const plusPrice = Math.max(0.99, product.currentPrice - 1.31);
+        const paymentFee = 0.22;
+
+        if (titleNode) titleNode.textContent = `${product.title} (${product.platform}) - GLOBAL Key`;
+        if (ratingNode) ratingNode.textContent = `${'★'.repeat(Math.round(product.rating)).padEnd(5, '☆')} ${product.rating.toFixed(1)} | 3 reviews`;
+        if (crumbsNode) crumbsNode.textContent = `G2A > Gaming > Games > ${product.title}`;
+        if (platformNode) platformNode.textContent = product.platform;
+        if (sellerNode) sellerNode.textContent = product.seller;
+        if (bundleTitle) bundleTitle.textContent = `${product.title} - Digital Key`;
+        if (aboutTitle) aboutTitle.textContent = product.title;
+        if (plusPriceNode) plusPriceNode.textContent = `${money(plusPrice)} USD`;
+        if (regularPriceNode) regularPriceNode.textContent = `${money(product.currentPrice)} USD`;
+        if (saveNode) saveNode.textContent = `${money(product.currentPrice - plusPrice)} USD`;
+        if (totalCostNode) totalCostNode.textContent = `${money(product.currentPrice + paymentFee)} USD`;
+
+        if (mainImage) {
+          mainImage.src = product.coverUrl;
+          mainImage.alt = `${product.title} cover`;
+        }
+
+        thumbs.forEach((thumb, index) => {
+          thumb.src = product.coverUrl;
+          thumb.alt = `${product.title} image ${index + 1}`;
+        });
+      }
+
+      function addToCart(gameId, quantity = 1) {
+        const items = readCart();
+        const existing = items.find((item) => item.gameId === gameId);
+        if (existing) {
+          existing.quantity += quantity;
+        } else {
+          items.push({ gameId, quantity });
+        }
+        writeCart(items);
+        localStorage.setItem(LAST_PRODUCT_KEY, gameId);
+        refreshCartHeader();
+      }
+
+      const priceRows = document.querySelectorAll('.price-row');
+      const tabs = document.querySelectorAll('.tab');
+      const panes = { offers: document.getElementById('panel-offers'), about: document.getElementById('panel-about') };
+      const buyBox = document.getElementById('buyBox');
+      const selectedProduct = getSelectedProduct();
+
+      updateProductView(selectedProduct);
+      refreshCartHeader();
+
+      priceRows.forEach((row) => {
+        row.addEventListener('click', function () {
+          priceRows.forEach((r) => r.classList.remove('active'));
+          this.classList.add('active');
+        });
+      });
+
+      function normalizeHash(hash) {
+        const val = (hash || '').replace('#', '').toLowerCase();
+        return val === 'about' ? 'about' : 'offers';
+      }
+
+      function setTab(name, syncHash = true) {
+        const target = name === 'about' ? 'about' : 'offers';
+        tabs.forEach((tab) => tab.classList.toggle('active', tab.dataset.tab === target));
+        Object.entries(panes).forEach(([key, pane]) => pane.classList.toggle('active', key === target));
+        if (syncHash) history.replaceState(null, '', '#' + target);
+      }
+
+      tabs.forEach((tab) => tab.addEventListener('click', () => setTab(tab.dataset.tab, true)));
+
+      document.querySelectorAll('[data-tab-trigger]').forEach((node) => {
+        node.addEventListener('click', () => {
+          setTab(node.getAttribute('data-tab-trigger'), true);
+          document.getElementById('itemDetails').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      });
+
+      function focusBuyBox() {
+        buyBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        buyBox.classList.add('highlight');
+        setTimeout(() => buyBox.classList.remove('highlight'), 1100);
+      }
+
+      document.querySelectorAll('[data-action="focus-buybox"]').forEach((node) => {
+        node.addEventListener('click', focusBuyBox);
+      });
+
+      document.querySelectorAll('[data-add-cart]').forEach((node) => {
+        node.addEventListener('click', () => {
+          addToCart(selectedProduct.id, 1);
+          if (!node.classList.contains('mini')) {
+            const original = node.textContent;
+            node.textContent = 'Added';
+            setTimeout(() => {
+              node.textContent = original;
+            }, 900);
+          }
+        });
+      });
+
+      setTab(normalizeHash(window.location.hash), false);
+      window.addEventListener('hashchange', () => setTab(normalizeHash(window.location.hash), false));
+    });
+  </script>
+</body>
+</html>

@@ -17,7 +17,7 @@ export const games: Game[] = [
   {
     id: "1",
     title: "Elden Ring: Shadow of the Erdtree",
-    coverUrl: "https://picsum.photos/seed/eldenring/400/500",
+    coverUrl: "/images/catalog/rpg-cover.avif",
     platform: "Steam",
     originalPrice: 39.99,
     currentPrice: 34.99,
@@ -30,7 +30,7 @@ export const games: Game[] = [
   {
     id: "2",
     title: "Helldivers 2",
-    coverUrl: "https://picsum.photos/seed/helldivers/400/500",
+    coverUrl: "/images/catalog/coop-shooter.webp",
     platform: "Steam",
     originalPrice: 39.99,
     currentPrice: 31.50,
@@ -43,7 +43,7 @@ export const games: Game[] = [
   {
     id: "3",
     title: "Dragon's Dogma 2",
-    coverUrl: "https://picsum.photos/seed/dragonsdogma/400/500",
+    coverUrl: "/images/catalog/fantasy-cover-a.avif",
     platform: "Steam",
     originalPrice: 69.99,
     currentPrice: 45.99,
@@ -55,7 +55,7 @@ export const games: Game[] = [
   {
     id: "4",
     title: "Cyberpunk 2077: Phantom Liberty",
-    coverUrl: "https://picsum.photos/seed/cyberpunk/400/500",
+    coverUrl: "/images/catalog/scifi-arena.webp",
     platform: "GOG.com",
     originalPrice: 29.99,
     currentPrice: 22.49,
@@ -67,7 +67,7 @@ export const games: Game[] = [
   {
     id: "5",
     title: "Baldur's Gate 3",
-    coverUrl: "https://picsum.photos/seed/bg3/400/500",
+    coverUrl: "/images/catalog/fantasy-cover-b.avif",
     platform: "Steam",
     originalPrice: 59.99,
     currentPrice: 53.99,
@@ -79,7 +79,7 @@ export const games: Game[] = [
   {
     id: "6",
     title: "Horizon Forbidden West Complete Edition",
-    coverUrl: "https://picsum.photos/seed/horizon/400/500",
+    coverUrl: "/images/catalog/action-cover.avif",
     platform: "Steam",
     originalPrice: 59.99,
     currentPrice: 41.99,
@@ -91,7 +91,7 @@ export const games: Game[] = [
   {
     id: "7",
     title: "Ghost of Tsushima DIRECTOR'S CUT",
-    coverUrl: "https://picsum.photos/seed/ghost/400/500",
+    coverUrl: "/images/catalog/marathon-art.webp",
     platform: "Steam",
     originalPrice: 59.99,
     currentPrice: 49.99,
@@ -103,7 +103,7 @@ export const games: Game[] = [
   {
     id: "8",
     title: "Palworld",
-    coverUrl: "https://picsum.photos/seed/palworld/400/500",
+    coverUrl: "/images/catalog/scifi-arena.webp",
     platform: "Steam",
     originalPrice: 29.99,
     currentPrice: 26.99,
@@ -115,7 +115,7 @@ export const games: Game[] = [
   {
     id: "9",
     title: "EA SPORTS FC 24",
-    coverUrl: "https://picsum.photos/seed/fc24/400/500",
+    coverUrl: "/images/catalog/ea-fc.webp",
     platform: "EA App",
     originalPrice: 69.99,
     currentPrice: 19.99,
@@ -127,7 +127,7 @@ export const games: Game[] = [
   {
     id: "10",
     title: "Red Dead Redemption 2",
-    coverUrl: "https://picsum.photos/seed/rdr2/400/500",
+    coverUrl: "/images/catalog/rpg-cover.avif",
     platform: "Rockstar",
     originalPrice: 59.99,
     currentPrice: 15.99,

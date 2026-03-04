@@ -22,7 +22,7 @@ export function GameCard({ game }: GameCardProps) {
       
       {/* Cover Image */}
       <div className="relative aspect-[3/4] overflow-hidden bg-gray-100">
-        <Link to={`/product/${game.id}`} className="block">
+        <Link to={`/cart?product=${game.id}`} className="block">
           <img
             src={game.coverUrl}
             alt={game.title}
@@ -59,7 +59,7 @@ export function GameCard({ game }: GameCardProps) {
         </div>
         
         <Link
-          to={`/product/${game.id}`}
+          to={`/cart?product=${game.id}`}
           className="font-semibold text-gray-900 text-sm line-clamp-2 mb-3 group-hover:text-blue-600 transition-colors"
         >
           {game.title}

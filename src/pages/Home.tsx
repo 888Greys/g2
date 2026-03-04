@@ -1,6 +1,6 @@
 ﻿import { Search } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { Fragment, type FormEvent, useState } from "react";
 import { games } from "../data/games";
 
 const featuredCards = [
@@ -130,7 +130,7 @@ export default function Home() {
   const [query, setQuery] = useState("");
   const navigate = useNavigate();
 
-  function handleSearch(e: React.FormEvent) {
+  function handleSearch(e: FormEvent) {
     e.preventDefault();
     if (query.trim()) navigate(`/catalog?q=${encodeURIComponent(query.trim())}`);
   }
@@ -310,8 +310,8 @@ export default function Home() {
                 <div className="border-t border-gray-100 pt-4 mt-4">
                   <div className="text-2xl font-black mb-0.5">{bundle.total}</div>
                   <div className="text-[13px] font-bold text-emerald-600 mb-4">You save: {bundle.save}</div>
-                  <Link to="/cart" className="block w-full text-center bg-blue-600 text-white py-3 rounded-lg font-bold text-sm hover:bg-blue-700 transition-colors mb-2">Add to cart</Link>
-                  <Link to="/catalog" className="block w-full text-center border border-blue-600 text-blue-600 py-3 rounded-lg font-bold text-sm hover:bg-blue-50 transition-colors">Check bundle details</Link>
+                  <Link to="/cart?product=1" className="block w-full text-center bg-blue-600 text-white py-3 rounded-lg font-bold text-sm hover:bg-blue-700 transition-colors mb-2">Add to cart</Link>
+                  <Link to="/cart?product=1" className="block w-full text-center border border-blue-600 text-blue-600 py-3 rounded-lg font-bold text-sm hover:bg-blue-50 transition-colors">Check bundle details</Link>
                 </div>
               </div>
             ))}
@@ -580,8 +580,8 @@ export default function Home() {
               <div className="border-t border-gray-100 mt-4 pt-4">
                 <div className="text-[26px] font-black">{bundle.total}</div>
                 <div className="text-[13px] font-bold text-emerald-600 mb-4">You save: {bundle.save}</div>
-                <Link to="/cart" className="block w-full text-center bg-blue-600 text-white py-3 rounded-lg font-bold text-sm hover:bg-blue-700 transition-colors mb-2">Add to cart</Link>
-                <Link to="/catalog" className="block w-full text-center border border-blue-50 text-blue-600 py-3 rounded-lg font-bold text-sm hover:bg-blue-50 transition-colors">Check bundle details</Link>
+                <Link to="/cart?product=1" className="block w-full text-center bg-blue-600 text-white py-3 rounded-lg font-bold text-sm hover:bg-blue-700 transition-colors mb-2">Add to cart</Link>
+                <Link to="/cart?product=1" className="block w-full text-center border border-blue-50 text-blue-600 py-3 rounded-lg font-bold text-sm hover:bg-blue-50 transition-colors">Check bundle details</Link>
               </div>
             </div>
           ))}
@@ -712,7 +712,9 @@ export default function Home() {
                 a: 'You can reach out through the Support Center on the website or via the ticket system in your user dashboard.',
               },
             ].map((item, i) => (
-              <FAQItem key={i} question={item.q} answer={item.a} isLast={i === 5} />
+              <Fragment key={i}>
+                <FAQItem question={item.q} answer={item.a} isLast={i === 5} />
+              </Fragment>
             ))}
           </div>
         </div>
@@ -742,7 +744,9 @@ export default function Home() {
             { label: 'SUPPORT', content: 'Support Center, contact us, and dispute resolution.' },
             { label: 'MEDIA', content: 'Press kit, news, and branding resources.' },
           ].map((item, i) => (
-            <FooterAccordion key={i} label={item.label} content={item.content} />
+            <Fragment key={i}>
+              <FooterAccordion label={item.label} content={item.content} />
+            </Fragment>
           ))}
         </div>
 

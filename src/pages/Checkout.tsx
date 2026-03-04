@@ -130,7 +130,7 @@ export default function Checkout() {
               <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight mt-2">Checkout</h1>
               <p className="text-base text-gray-600 mt-2">Complete your purchase and receive your keys instantly.</p>
             </div>
-            <Link to="/cart" className="text-sm font-semibold text-blue-600 hover:text-blue-700">
+            <Link to="/cart-items" className="text-sm font-semibold text-blue-600 hover:text-blue-700">
               Edit cart
             </Link>
           </div>

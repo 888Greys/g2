@@ -89,7 +89,7 @@ export function Navbar() {
               </Link>
             )}
             
-            <Link to="/cart" className="flex items-center gap-2 bg-gray-100 text-gray-900 hover:bg-gray-200 transition-colors px-3 py-2 rounded-lg font-medium text-sm">
+            <Link to="/cart-items" className="flex items-center gap-2 bg-gray-100 text-gray-900 hover:bg-gray-200 transition-colors px-3 py-2 rounded-lg font-medium text-sm">
               <div className="relative">
                 <ShoppingCart size={20} />
                 <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-[10px] font-bold h-4 w-4 rounded-full flex items-center justify-center">
